@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.eslintrc.js
+*.md
+*.html
+test/
+*.test.*
+!.vitepress
+*.d.ts
