@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="tools-operation-wrap">
-      <n-space :size="20" align="center">
+      <n-space :size="10" align="center">
         <n-dropdown placement="bottom-start"
                     trigger="click"
                     size="medium"
@@ -26,37 +26,62 @@
           </div>
         </n-dropdown>
         <div class="operation-buttons">
-          <span class="operation-button">
-           <n-icon :size="18">
-            <content-cut-outlined></content-cut-outlined>
-           </n-icon>
-          </span>
-          <span class="operation-button">
-            <n-icon :size="18">
-              <copy-outline></copy-outline>
-            </n-icon>
-          </span>
-          <span class="operation-button">
-            <n-icon :size="18">
-              <content-paste-filled></content-paste-filled>
-            </n-icon>
-          </span>
-          <span class="operation-button">
-            <n-icon :size="20">
-              <rename24-regular></rename24-regular>
-            </n-icon>
-          </span>
-          <span class="operation-button">
-            <n-icon :size="20">
-              <delete-outlined></delete-outlined>
-            </n-icon>
-          </span>
+          <n-popover trigger="hover">
+            <template #trigger>
+              <span class="operation-button">
+                 <n-icon :size="18" color="#0d7dd1">
+                  <content-cut-outlined></content-cut-outlined>
+                 </n-icon>
+              </span>
+            </template>
+            <span>剪切</span>
+          </n-popover>
+          <n-popover trigger="hover">
+            <template #trigger>
+              <span class="operation-button">
+                <n-icon :size="18" color="#0d7dd1">
+                 <copy-outline></copy-outline>
+                </n-icon>
+              </span>
+            </template>
+            <span>拷贝</span>
+          </n-popover>
+          <n-popover trigger="hover">
+            <template #trigger>
+              <span class="operation-button">
+                <n-icon :size="18" color="#0d7dd1">
+                  <content-paste-filled></content-paste-filled>
+                </n-icon>
+              </span>
+            </template>
+            <span>粘贴</span>
+          </n-popover>
+          <n-popover trigger="hover">
+            <template #trigger>
+              <span class="operation-button">
+                <n-icon :size="20" color="#0d7dd1">
+                  <rename24-regular></rename24-regular>
+                </n-icon>
+              </span>
+            </template>
+            <span>重命名</span>
+          </n-popover>
+          <n-popover trigger="hover">
+            <template #trigger>
+               <span class="operation-button">
+                  <n-icon :size="20">
+                    <delete-outlined></delete-outlined>
+                  </n-icon>
+               </span>
+            </template>
+            <span>删除</span>
+          </n-popover>
         </div>
         <n-dropdown placement="bottom-start"
-        trigger="click"
-        size="medium"
-        :options="createMenus"
-        @select="handleCreateMenuSelect">
+          trigger="click"
+          size="medium"
+          :options="createMenus"
+          @select="handleCreateMenuSelect">
           <div class="add-dropdown-menu-button">
             <n-icon :size="20">
               <add-circle-outline></add-circle-outline>
@@ -87,8 +112,7 @@ import { Rename24Regular } from '@vicons/fluent';
 
 export default defineComponent ( {
   name: 'explorer-top-tools', components: {
-    FolderFilled, DownOutlined, AddCircleOutline, ContentCutOutlined, CopyOutline, ContentPasteFilled, Rename24Regular,
-    DeleteOutlined,
+    FolderFilled, DownOutlined, AddCircleOutline, ContentCutOutlined, CopyOutline, ContentPasteFilled, Rename24Regular, DeleteOutlined,
   }, setup () {
 
     const renderIcon = ( icon: Component ) => {

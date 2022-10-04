@@ -41,6 +41,9 @@
 	}
 	.operation-buttons {
 		@apply flex items-center;
+		border-left: 1px solid #e5e5e5;
+		border-right: 1px solid #e5e5e5;
+		padding: 0 5px;
 		.operation-button {
 			display: block;
 			&:first-child {
