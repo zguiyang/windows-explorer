@@ -11,13 +11,13 @@
     <div class="tools-operation-wrap">
       <n-space :size="10" align="center">
         <n-dropdown placement="bottom-start"
-                    trigger="click"
-                    size="medium"
-                    :options="createMenus"
-                    @select="handleCreateMenuSelect">
+          trigger="click"
+          size="medium"
+          :options="createMenus"
+          @select="handleCreateMenuSelect">
           <div class="add-dropdown-menu-button">
             <n-icon :size="20">
-              <add-circle-outline></add-circle-outline>
+              <add-circle-outline color="#0d7dd1"></add-circle-outline>
             </n-icon>
             <span class="button-name">新建</span>
             <n-icon :size="16" :style="{marginLeft: '4px'}">
@@ -84,7 +84,7 @@
           @select="handleCreateMenuSelect">
           <div class="add-dropdown-menu-button">
             <n-icon :size="20">
-              <add-circle-outline></add-circle-outline>
+              <arrow-sort28-regular color="#0d7dd1"></arrow-sort28-regular>
             </n-icon>
             <span class="button-name">排序</span>
             <n-icon :size="16" :style="{marginLeft: '4px'}">
@@ -108,11 +108,12 @@ import { AddCircleOutline, FolderOutline, ShareOutline, CopyOutline } from '@vic
 
 import { ContentCutOutlined, ContentPasteFilled } from '@vicons/material';
 
-import { Rename24Regular } from '@vicons/fluent';
+import { Rename24Regular, ArrowSort28Regular } from '@vicons/fluent';
 
 export default defineComponent ( {
   name: 'explorer-top-tools', components: {
-    FolderFilled, DownOutlined, AddCircleOutline, ContentCutOutlined, CopyOutline, ContentPasteFilled, Rename24Regular, DeleteOutlined,
+    FolderFilled, DownOutlined, AddCircleOutline, ContentCutOutlined, CopyOutline, ContentPasteFilled, Rename24Regular,
+    DeleteOutlined, ArrowSort28Regular,
   }, setup () {
 
     const renderIcon = ( icon: Component ) => {
