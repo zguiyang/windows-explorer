@@ -4,6 +4,10 @@ specifiers:
   '@types/node': ^18.7.23
   '@typescript-eslint/eslint-plugin': ^5.38.1
   '@typescript-eslint/parser': ^5.38.1
+  '@vicons/antd': ^0.12.0
+  '@vicons/fluent': ^0.12.0
+  '@vicons/ionicons5': ^0.12.0
+  '@vicons/material': ^0.12.0
   '@vitejs/plugin-vue': ^3.1.0
   autoprefixer: ^10.4.12
   eslint: ^8.24.0
@@ -29,6 +33,10 @@ devDependencies:
   '@types/node': 18.7.23
   '@typescript-eslint/eslint-plugin': 5.38.1_c7qepppml3d4ahu5cnfwqe6ltq
   '@typescript-eslint/parser': 5.38.1_ypn2ylkkyfa5i233caldtndbqa
+  '@vicons/antd': 0.12.0
+  '@vicons/fluent': 0.12.0
+  '@vicons/ionicons5': 0.12.0
+  '@vicons/material': 0.12.0
   '@vitejs/plugin-vue': 3.1.0_vite@3.1.4+vue@3.2.40
   autoprefixer: 10.4.12_postcss@8.4.17
   eslint: 8.24.0
@@ -331,6 +339,22 @@ packages:
     dependencies:
       '@typescript-eslint/types': 5.38.1
       eslint-visitor-keys: 3.3.0
+    dev: true
+
+  /@vicons/antd/0.12.0:
+    resolution: {integrity: sha512-C0p6aO1EmGG1QHrqgUWQS1No20934OdWSRQshM5NIDK5H1On6tC26U0hT6Rmp40KfUsvhvX5YW8BoWJdNFifPg==}
+    dev: true
+
+  /@vicons/fluent/0.12.0:
+    resolution: {integrity: sha512-ATCiqPuiJ6RI5GBlD3BIpZ9Xw4MsCA4RpI5oR6MCti4quS4mX1Gp6N74FCzw7lgOj+80rV4HMKhZTVInwimpVQ==}
+    dev: true
+
+  /@vicons/ionicons5/0.12.0:
+    resolution: {integrity: sha512-Iy1EUVRpX0WWxeu1VIReR1zsZLMc4fqpt223czR+Rpnrwu7pt46nbnC2ycO7ItI/uqDLJxnbcMC7FujKs9IfFA==}
+    dev: true
+
+  /@vicons/material/0.12.0:
+    resolution: {integrity: sha512-chv1CYAl8P32P3Ycwgd5+vw/OFNc2mtkKdb1Rw4T5IJmKy6GVDsoUKV3N2l208HATn7CCQphZtuPDdsm7K2kmA==}
     dev: true
 
   /@vitejs/plugin-vue/3.1.0_vite@3.1.4+vue@3.2.40:

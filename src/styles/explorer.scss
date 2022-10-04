@@ -1,0 +1,51 @@
+.explorer-wrapper {
+	width: 1200px;
+	@apply ml-auto mr-auto relative;
+	background: #fff;
+	border-radius: 12px;
+	box-shadow: 10px 5px 15px #524e4e;
+}
+.explorer-top-tools-wrapper {
+	background-color: #f3f3f3;
+	border-top-left-radius: 12px;
+	border-top-right-radius: 12px;
+	border-bottom: 1px solid #e0e0e0;
+	padding: 8px 10px;
+	.tools-title {
+		@apply flex justify-between items-center;
+		.tools-title-left {
+			@apply flex items-center;
+		}
+		.folder-name {
+			padding-left: 4px;
+		}
+	}
+	.tools-operation-wrap {
+		margin-top: 12px;
+	}
+	.add-dropdown-menu-button {
+		@apply flex justify-start items-center space-x-1;
+		.button-name {
+			padding: 0 4px;
+		}
+	}
+	.add-dropdown-menu-button,.operation-button {
+		padding: 10px 12px;
+		border-radius: 6px;
+		background-color: transparent;
+		transition: all .3s;
+		cursor: pointer;
+		&:hover {
+			background-color: #eaeaea;
+		}
+	}
+	.operation-buttons {
+		@apply flex items-center;
+		.operation-button {
+			display: block;
+			&:first-child {
+				margin-left: 0;
+			}
+		}
+	}
+}
