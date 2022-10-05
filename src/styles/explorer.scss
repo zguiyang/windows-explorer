@@ -73,3 +73,13 @@
 		}
 	}
 }
+.explorer-main-wrapper {
+	@apply w-full relative flex justify-start items-start;
+	.explorer-sidebar-wrapper {
+		@apply basis-1/4;
+	}
+	.explorer-container-wrapper {
+		@apply basis-3/4;
+	}
+}
+.explorer-top-sidebar-wrapper {}

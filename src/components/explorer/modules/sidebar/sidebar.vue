@@ -1,5 +1,7 @@
 <template>
-<h1>左侧区域</h1>
+<div class="explorer-top-sidebar-wrapper">
+  <h1>侧边栏</h1>
+</div>
 </template>
 
 <script lang="ts">
