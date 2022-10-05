@@ -18,13 +18,13 @@
 </template>
 
 <script lang="ts">
-import ETopTools from './modules/top-tools.vue';
+import { ETopTools } from './modules/top-tools';
 
-import ETopSearch from './modules/top-search.vue';
+import { ETopSearch } from './modules/top-search';
 
-import ESidebar from './modules/sidebar.vue';
+import { ESidebar } from './modules/sidebar';
 
-import EContainer from './modules/container.vue';
+import { EContainer } from './modules/files-container';
 
 import { defineComponent } from 'vue';
 

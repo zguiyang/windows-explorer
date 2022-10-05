@@ -15,7 +15,7 @@
           size="medium"
           :options="createMenus"
           @select="handleCreateMenuSelect">
-          <div class="add-dropdown-menu-button">
+          <div class="dropdown-menu-button">
             <n-icon :size="20">
               <add-circle-outline color="#0d7dd1"></add-circle-outline>
             </n-icon>
@@ -82,7 +82,7 @@
           size="medium"
           :options="createMenus"
           @select="handleCreateMenuSelect">
-          <div class="add-dropdown-menu-button">
+          <div class="dropdown-menu-button">
             <n-icon :size="20">
               <arrow-sort28-regular color="#0d7dd1"></arrow-sort28-regular>
             </n-icon>
