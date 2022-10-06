@@ -82,4 +82,9 @@
 		@apply basis-3/4;
 	}
 }
-.explorer-top-sidebar-wrapper {}
+.explorer-left-sidebar-wrapper {
+	padding: 10px 30px;
+	height: 100%;
+	width: 100%;
+	overflow: auto;
+}
