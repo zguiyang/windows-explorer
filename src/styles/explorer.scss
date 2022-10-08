@@ -54,8 +54,8 @@
 }
 .explorer-top-search-wrapper {
 	margin-top: 10px;
-	padding-left: 20px;
-	padding-right: 20px;
+	padding-left: 10px;
+	padding-right: 10px;
 	.search-operation-buttons {
 		border-left: 0;
 		border-right: 0;
@@ -76,14 +76,15 @@
 .explorer-main-wrapper {
 	@apply w-full relative flex justify-start items-start;
 	.explorer-sidebar-wrapper {
-		@apply basis-1/4;
+		overflow: auto;
+		width: 180px;
 	}
 	.explorer-container-wrapper {
-		@apply basis-3/4;
+		width: calc(100% - 180px);
 	}
 }
 .explorer-left-sidebar-wrapper {
-	padding: 10px 30px;
+	padding: 10px 15px;
 	height: 100%;
 	width: 100%;
 	overflow: auto;
