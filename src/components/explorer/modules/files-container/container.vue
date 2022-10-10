@@ -7,7 +7,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-import TableList from './table-list.vue';
+import TableList from './table-list/index.vue';
 
 export default defineComponent ( {
   name: 'explorer-container',
