@@ -15,7 +15,12 @@ export function useTableListData () {
       align: 'center',
     }, {
       default: () => [
-        h ( NIcon, { size: 28, color: '#ffd767' }, { default: () => h ( FolderFilled ) } ),
+        h ( NIcon, {
+          size: 28,
+          color: '#ffd767',
+        },
+        { default: () => h ( FolderFilled ),
+        } ),
         row.name,
       ] } );
 
