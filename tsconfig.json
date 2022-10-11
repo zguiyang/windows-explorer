@@ -14,7 +14,9 @@
     "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
     "types": ["./node_modules/naive-ui/volar.d.ts"],
-    "paths": {},
+    "paths": {
+      "@/*": ["./src/*"],
+    },
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "./auto-imports.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]

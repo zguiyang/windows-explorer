@@ -14,6 +14,11 @@ export default defineConfig ( {
   server: {
     open: false,
   },
+  resolve: {
+    alias: {
+      '@': 'src/',
+    },
+  },
   plugins: [ vue (), AutoImport ( {
     dts: true,
     imports: [

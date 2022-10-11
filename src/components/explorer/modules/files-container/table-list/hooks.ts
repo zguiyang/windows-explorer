@@ -2,7 +2,11 @@ import { NIcon, NSpace, DataTableColumn } from 'naive-ui';
 
 import { FolderFilled } from '@vicons/antd';
 
+import { ExplorerFile, useExplorerStore } from '@/store/explorer';
+
 export function useTableListData () {
+
+  const store = useExplorerStore ();
 
   const renderFolderName = ( row ) => {
 
@@ -40,14 +44,7 @@ export function useTableListData () {
     },
   ];
 
-  const tableData = [
-    {
-      name: '文件夹一',
-      updateTime: '2022-10-9 10:22:00',
-      fileType: 'folder',
-      fileSize: '1M',
-    },
-  ];
+  const tableData = computed<ExplorerFile[]> ( () => store.currentFiles );
 
   return {
     tableColumns,
