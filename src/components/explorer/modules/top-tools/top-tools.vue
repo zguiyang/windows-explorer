@@ -130,13 +130,17 @@ export default defineComponent ( {
 
     };
 
-    const createMenus: DropdownOption[] = [ {
-      label: '文件夹', key: 'folder', icon: renderIcon ( FolderOutline ),
-    }, {
-      label: '快捷方式', key: 'shortcut', icon: renderIcon ( ShareOutline ),
-    }, {
-      label: 'TXT文件', key: 'txt', icon: renderIcon ( FileAddOutlined ),
-    } ];
+    const createMenus: DropdownOption[] = [
+      {
+        label: '文件夹', key: 'folder', icon: renderIcon ( FolderOutline ),
+      },
+      {
+        label: '快捷方式', key: 'shortcut', icon: renderIcon ( ShareOutline ),
+      },
+      {
+        label: 'TXT文件', key: 'txt', icon: renderIcon ( FileAddOutlined ),
+      },
+    ];
 
     const handleCreateMenuSelect = ( key: string | number ) => {
 
