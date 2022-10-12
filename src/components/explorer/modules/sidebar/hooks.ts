@@ -2,7 +2,7 @@ import { TreeOption } from 'naive-ui';
 
 import { arrayRecursionMap } from 'quick-utils-js';
 
-import { FileMenuTree, useExplorerStore } from '@/store/explorer';
+import { FolderMenuItem, useExplorerStore } from '@/store/explorer';
 
 export function useSideBarData () {
 
@@ -10,7 +10,7 @@ export function useSideBarData () {
 
   const menuTreeList = computed<TreeOption[]> ( () => {
 
-    return arrayRecursionMap<FileMenuTree, TreeOption> ( store.fileMenuTreeList, ( item ) => {
+    return arrayRecursionMap<FolderMenuItem, TreeOption> ( store.folderMenuList, ( item ) => {
 
       return {
         key: item.id,

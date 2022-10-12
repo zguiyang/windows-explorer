@@ -98,17 +98,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, Component, h } from 'vue';
+import { defineComponent } from 'vue';
 
-import { DropdownOption, NIcon } from 'naive-ui';
+import { FolderFilled, DownOutlined, DeleteOutlined } from '@vicons/antd';
 
-import { FolderFilled, DownOutlined, FileAddOutlined, DeleteOutlined } from '@vicons/antd';
-
-import { AddCircleOutline, FolderOutline, ShareOutline, CopyOutline } from '@vicons/ionicons5';
+import { AddCircleOutline, CopyOutline } from '@vicons/ionicons5';
 
 import { ContentCutOutlined, ContentPasteFilled } from '@vicons/material';
 
 import { Rename24Regular, ArrowSort28Regular } from '@vicons/fluent';
+
+import { useTopToolsHooks } from './hooks';
 
 export default defineComponent ( {
   name: 'explorer-top-tools',
@@ -118,38 +118,11 @@ export default defineComponent ( {
   },
   setup () {
 
-    const renderIcon = ( icon: Component ) => {
-
-      return () => {
-
-        return h ( NIcon, null, {
-          default: () => h ( icon ),
-        } );
-
-      };
-
-    };
-
-    const createMenus: DropdownOption[] = [
-      {
-        label: '文件夹', key: 'folder', icon: renderIcon ( FolderOutline ),
-      },
-      {
-        label: '快捷方式', key: 'shortcut', icon: renderIcon ( ShareOutline ),
-      },
-      {
-        label: 'TXT文件', key: 'txt', icon: renderIcon ( FileAddOutlined ),
-      },
-    ];
-
-    const handleCreateMenuSelect = ( key: string | number ) => {
-
-      console.log ( key );
-
-    };
+    const { createMenus, handleCreateMenuSelect } = useTopToolsHooks ();
 
     return {
-      createMenus, handleCreateMenuSelect,
+      createMenus,
+      handleCreateMenuSelect,
     };
 
   },
