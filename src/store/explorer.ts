@@ -79,7 +79,7 @@ export const useExplorerStore = defineStore ( 'explorer', () => {
 
   const currentFiles = ref<ExplorerFile[]> ( [ ] );
 
-  const currentPath = ref<string|null> ( '' );
+  const currentFile = ref<FileMenuTree|null> ( null );
 
   function addFile ( file: ExplorerFile ) {
 
@@ -105,12 +105,12 @@ export const useExplorerStore = defineStore ( 'explorer', () => {
 
     fileList.value.push ( DEFAULT_ROOT_MENU_TREE );
 
-    currentPath.value = DEFAULT_ROOT_MENU_TREE.path;
+    currentFile.value = DEFAULT_ROOT_MENU_TREE;
 
     setFileMenuTreeList ();
 
   }
 
-  return { fileList, fileMenuTreeList, currentPath, currentFiles, initExplorerData, addFile, setCurrentFiles };
+  return { fileList, fileMenuTreeList, currentFile, currentFiles, initExplorerData, addFile, setCurrentFiles };
 
 } );
