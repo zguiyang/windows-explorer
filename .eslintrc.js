@@ -1,19 +1,18 @@
 module.exports = {
 	env: {
-		'browser': true, 'node': true, 'es2021': true
+		'browser': true,
+		'node': true,
+		'es2021': true
 	},
 	extends: [ 'eslint:recommended', 'plugin:vue/base', 'plugin:@typescript-eslint/recommended' ],
 	overrides: [],
-	// parser: '@typescript-eslint/parser',
-	// parserOptions: {
-	// 	'ecmaVersion': 'latest', 'sourceType': 'module'
-	// },
 	parser: 'vue-eslint-parser',
 	parserOptions: {
 		parser: '@typescript-eslint/parser'
 	},
 	plugins: [ 'vue','@typescript-eslint' ],
 	rules: {
+		"no-unused-vars": "off",
 		"no-undef": "off",
 		"indent": "off",
 		"no-useless-escape": "off",
@@ -25,7 +24,6 @@ module.exports = {
 		'no-cond-assign': 'off',
 		'@typescript-eslint/no-unused-expressions': 'off',
 		'object-curly-spacing': [ 'error', 'always' ],
-		'no-unused-vars': [ 'error', { 'args': 'none' } ],
 		'vue/max-attributes-per-line': 'off',
 		'@typescript-eslint/ban-ts-comment': 'off',
 		'@typescript-eslint/explicit-module-boundary-types': 'off',
