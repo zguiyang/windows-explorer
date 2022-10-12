@@ -40,7 +40,7 @@ function createFileDataOperation () {
       isFolder: true,
       fileSize: 0,
       createTime: dateFormat ( new Date ().getTime () ),
-      updateTime: null,
+      updateTime: dateFormat ( new Date ().getTime () ),
     };
 
     newFolder.path = pathResolve ( newFolder.parentPath, newFolder.name );

@@ -101,7 +101,7 @@ export const useExplorerStore = defineStore ( 'explorer', () => {
 
   const folderMenuList = ref<FolderMenuItem[]> ( [ ] );
 
-  const currentFiles = ref<ExplorerFile[]> ( [ ] );
+  const currentFiles = ref<Array<ExplorerFile|FolderMenuItem>> ( [ ] );
 
   const parentFile = ref<FolderMenuItem|null> ( null );
 
@@ -115,13 +115,23 @@ export const useExplorerStore = defineStore ( 'explorer', () => {
 
     explorerFileList.value.push ( payload );
 
+    updateCurrentFiles ();
+
     updateFolderMenuList ();
 
   }
 
-  function updateCurrentFiles ( payload: ExplorerFile[] ) {
+  function updateCurrentFiles ( ) {
 
-    currentFiles.value = payload;
+    explorerFileList.value.forEach ( item => {
+
+      if ( item.parentPath === parentFile.value.path ) {
+
+        currentFiles.value.push ( item );
+
+      }
+
+    } );
 
   }
 
@@ -140,6 +150,8 @@ export const useExplorerStore = defineStore ( 'explorer', () => {
     parentFile.value = DEFAULT_ROOT_MENU_TREE;
 
     updateFolderMenuList ();
+
+    updateCurrentFiles ();
 
   }
 
