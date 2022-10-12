@@ -111,10 +111,12 @@ import { ContentCutOutlined, ContentPasteFilled } from '@vicons/material';
 import { Rename24Regular, ArrowSort28Regular } from '@vicons/fluent';
 
 export default defineComponent ( {
-  name: 'explorer-top-tools', components: {
+  name: 'explorer-top-tools',
+  components: {
     FolderFilled, DownOutlined, AddCircleOutline, ContentCutOutlined, CopyOutline, ContentPasteFilled, Rename24Regular,
     DeleteOutlined, ArrowSort28Regular,
-  }, setup () {
+  },
+  setup () {
 
     const renderIcon = ( icon: Component ) => {
 
