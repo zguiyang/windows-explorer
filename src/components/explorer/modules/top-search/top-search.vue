@@ -35,7 +35,7 @@
       </div>
       <div class="navigation-wrap">
         <div class="navigation-input">
-          <n-input style="width:600px">
+          <n-input style="width:600px" v-model:value="navigationInputVal">
             <template #prefix>
               <n-icon :size="26" color="#ffd767">
                 <folder-filled></folder-filled>
@@ -80,9 +80,20 @@ import { Refresh } from '@vicons/ionicons5';
 
 import { ComputerFilled } from '@vicons/material';
 
+import { useTopSearchData } from './hooks';
+
 export default defineComponent ( {
   name: 'explorer-top-search',
   components: { ArrowLeftOutlined, ArrowRightOutlined, ArrowUpOutlined, Refresh, FolderFilled, ComputerFilled },
+  setup () {
+
+    const { navigationInputVal } = useTopSearchData ();
+
+    return {
+      navigationInputVal,
+    };
+
+  },
 } );
 </script>
 
