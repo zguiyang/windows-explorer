@@ -2,9 +2,11 @@ import { defineStore } from 'pinia';
 
 import { generateID, dateFormat } from 'quick-utils-js';
 
+import { initExplorerStorage, getExplorerStorage, updateExplorerStorage } from '@/helper/explorer-storage';
+
 export type ExplorerFileType = 'TXT' | 'JPG' | 'PNG' | 'MP4';
 
-export enum CreateFileEnum {
+export const enum CreateFileEnum {
   FOLDER= 'FOLDER',
   TXT='TXT',
 }
@@ -48,19 +50,6 @@ function createFolderMenuList ( files: ExplorerFile[] ):FolderMenuItem[] | null 
 
   const data = files.filter ( file => file.isFolder );
 
-  //
-  // data.forEach ( item => {
-  //
-  //   const parentItem = hashTable[ parentPath ];
-  //
-  //   if ( !parentItem ) {
-  //
-  //     hashTable[ item.path ] = { children: [] };
-  //
-  //   }
-  //
-  // } );
-
   const getChildren = ( res, parentPath ) => {
 
     data.forEach ( ( item, index ) => {
@@ -71,8 +60,6 @@ function createFolderMenuList ( files: ExplorerFile[] ):FolderMenuItem[] | null 
 
         res.push ( newItem );
 
-        console.log ( index, data );
-
         if ( data.splice ( index, 1 ).length ) {
 
           getChildren ( newItem.children, newItem.path );
@@ -81,7 +68,11 @@ function createFolderMenuList ( files: ExplorerFile[] ):FolderMenuItem[] | null 
 
       } else {
 
-        res.push ( item );
+        if ( !res.find ( it => it.path === item.path ) ) {
+
+          res.push ( item );
+
+        }
 
       }
 
@@ -97,13 +88,13 @@ function createFolderMenuList ( files: ExplorerFile[] ):FolderMenuItem[] | null 
 
 export const useExplorerStore = defineStore ( 'explorer', () => {
 
-  const explorerFileList = ref<ExplorerFile[]> ( [] );
+  const explorerFileList = ref<ExplorerFile[]> ( getExplorerStorage ( 'explorerFileList' ) as ExplorerFile[] || [] );
 
-  const folderMenuList = ref<FolderMenuItem[]> ( [ ] );
+  const folderMenuList = ref<FolderMenuItem[]> ( getExplorerStorage ( 'folderMenuList' ) as FolderMenuItem[] || [] );
 
-  const currentFiles = ref<Array<ExplorerFile|FolderMenuItem>> ( [ ] );
+  const currentFiles = ref<Array<ExplorerFile|FolderMenuItem>> ( getExplorerStorage ( 'currentFiles' ) as Array<ExplorerFile|FolderMenuItem> || [] );
 
-  const parentFile = ref<FolderMenuItem|null> ( null );
+  const parentFile = ref<FolderMenuItem|null> ( getExplorerStorage ( 'parentFile' ) as FolderMenuItem | null );
 
   function updateExplorerFile ( payload: ExplorerFile | FolderMenuItem ) {
 
@@ -114,6 +105,8 @@ export const useExplorerStore = defineStore ( 'explorer', () => {
     }
 
     explorerFileList.value.push ( payload );
+
+    updateExplorerStorage ( explorerFileList.value, 'explorerFileList' );
 
     updateCurrentFiles ();
 
@@ -133,11 +126,15 @@ export const useExplorerStore = defineStore ( 'explorer', () => {
 
     } );
 
+    updateExplorerStorage ( currentFiles.value, 'currentFiles' );
+
   }
 
   function updateFolderMenuList () {
 
     folderMenuList.value = createFolderMenuList ( explorerFileList.value );
+
+    updateExplorerStorage ( folderMenuList.value, 'folderMenuList' );
 
   }
 
@@ -145,13 +142,24 @@ export const useExplorerStore = defineStore ( 'explorer', () => {
 
   function initExplorerData ( ) {
 
-    explorerFileList.value.push ( DEFAULT_ROOT_MENU_TREE );
+    initExplorerStorage ( {
+      explorerFileList: [],
+      folderMenuList: [],
+      currentFiles: [],
+      parentFile: null,
+    } );
 
-    parentFile.value = DEFAULT_ROOT_MENU_TREE;
+    if ( !explorerFileList.value.length ) {
 
-    updateFolderMenuList ();
+      explorerFileList.value.push ( DEFAULT_ROOT_MENU_TREE );
 
-    updateCurrentFiles ();
+    }
+
+    if ( !parentFile.value ) {
+
+      parentFile.value = DEFAULT_ROOT_MENU_TREE;
+
+    }
 
   }
 
