@@ -2,13 +2,15 @@ import { NIcon, NSpace, DataTableColumn } from 'naive-ui';
 
 import { FolderFilled } from '@vicons/antd';
 
-import { ExplorerFile, useExplorerStore } from '@/store/explorer';
+import { useExplorerStore } from '@/store/explorer';
+
+import { ExplorerFileItem } from '@/helper/explorer-storage';
 
 export function useTableListData () {
 
   const store = useExplorerStore ();
 
-  const renderFolderName = ( row ) => {
+  const renderFolderName = ( row:ExplorerFileItem ) => {
 
     return h ( NSpace, {
       size: 8,
@@ -26,7 +28,7 @@ export function useTableListData () {
 
   };
 
-  const tableColumns: DataTableColumn[] = [
+  const tableColumns: DataTableColumn<ExplorerFileItem>[] = [
     {
       title: '名称',
       key: 'name',
@@ -49,7 +51,7 @@ export function useTableListData () {
     },
   ];
 
-  const tableData = computed<ExplorerFile[]> ( () => store.currentFiles );
+  const tableData = computed<ExplorerFileItem[]> ( () => store.currentFiles );
 
   return {
     tableColumns,

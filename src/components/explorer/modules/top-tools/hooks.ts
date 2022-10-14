@@ -10,7 +10,9 @@ import { renderIcon, pathResolve } from '@/helper/utils';
 
 import { useExplorerStore } from '@/store/explorer';
 
-import { CreateFileEnum, FolderMenuItem, ExplorerFile } from '@/helper/explorer-storage';
+import { FolderMenuItem, ExplorerFile } from '@/helper/explorer-storage';
+
+import { CreateFileEnum } from '@/helper/constant';
 
 /**
  * 创建各种文件操作

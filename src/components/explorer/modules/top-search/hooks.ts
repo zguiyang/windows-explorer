@@ -24,6 +24,12 @@ export function useTopSearchData () {
 
   } );
 
+  onMounted ( () => {
+
+    updateNavigationInputVal ();
+
+  } );
+
   return {
     navigationInputVal,
   };
