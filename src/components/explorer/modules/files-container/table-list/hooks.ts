@@ -4,7 +4,7 @@ import { FolderFilled } from '@vicons/antd';
 
 import { useExplorerStore } from '@/store/explorer';
 
-import { ExplorerFileItem } from '@/helper/explorer-storage';
+import { ExplorerFileItem } from '@/lib/explorer-type';
 
 export function useTableListData () {
 

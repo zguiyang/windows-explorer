@@ -10,9 +10,9 @@ import { renderIcon, pathResolve } from '@/helper/utils';
 
 import { useExplorerStore } from '@/store/explorer';
 
-import { FolderMenuItem, ExplorerFile } from '@/helper/explorer-storage';
+import { FolderMenuItem, ExplorerFileItem, CreateFileEnum } from '@/lib/explorer-type';
 
-import { CreateFileEnum } from '@/helper/constant';
+import { NEW_FOLDER_DEFAULT_NAME, NEW_TXT_DEFAULT_NAME } from '@/lib/constant';
 
 /**
  * 创建各种文件操作
@@ -38,7 +38,7 @@ function createFileDataOperation () {
 
     const newFolder:FolderMenuItem = {
       id: generateID (),
-      name: '新建文件夹',
+      name: NEW_FOLDER_DEFAULT_NAME,
       parentPath,
       path: '',
       isFolder: true,
@@ -65,9 +65,9 @@ function createFileDataOperation () {
 
     const parentPath = parentFile.value.path;
 
-    const newTXT:ExplorerFile = {
+    const newTXT:ExplorerFileItem = {
       id: generateID (),
-      name: '新建TXT文档',
+      name: NEW_TXT_DEFAULT_NAME,
       parentPath,
       path: '',
       fileType: 'TXT',

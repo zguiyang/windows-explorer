@@ -2,7 +2,9 @@ import { TreeOption } from 'naive-ui';
 
 import { arrayRecursionMap } from 'quick-utils-js';
 
-import { FolderMenuItem, useExplorerStore } from '@/store/explorer';
+import { useExplorerStore } from '@/store/explorer';
+
+import { FolderMenuItem } from '@/lib/explorer-type';
 
 export function useSideBarData () {
 

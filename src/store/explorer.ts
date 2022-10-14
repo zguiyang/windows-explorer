@@ -1,7 +1,9 @@
 import { defineStore } from 'pinia';
 
-import { ExplorerFileItem, FolderMenuItem, initExplorerStorage, getExplorerFileList, getFolderMenuList, getCurrentFiles, getParentFile,
-  updateExplorerFileListStorage, updateFolderMenuListStorage, updateParentFileStorage, updateCurrentFilesStorage } from '@/helper/explorer-storage';
+import { initExplorerStorage, getExplorerFileList, getFolderMenuList, getCurrentFiles, getParentFile,
+  updateExplorerFileListStorage, updateFolderMenuListStorage, updateParentFileStorage, updateCurrentFilesStorage } from '@/lib/explorer-storage';
+
+import { ExplorerFileItem, FolderMenuItem } from '@/lib/explorer-type';
 
 // 生成文件目录tree
 
