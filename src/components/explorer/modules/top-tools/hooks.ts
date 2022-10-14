@@ -8,7 +8,7 @@ import { generateID, dateFormat } from 'quick-utils-js';
 
 import { renderIcon, pathResolve } from '@/helper/utils';
 
-import { useExplorerStore, CreateFileEnum, FolderMenuItem } from '@/store/explorer';
+import { useExplorerStore, CreateFileEnum, FolderMenuItem, ExplorerFile } from '@/store/explorer';
 
 /**
  * 创建各种文件操作
@@ -20,6 +20,8 @@ function createFileDataOperation () {
 
   const parentFile = computed ( () => store.parentFile );
 
+  const parentPath = parentFile?.value?.path;
+
   /**创建文件夹**/
 
   const createFolder = () => {
@@ -30,8 +32,6 @@ function createFileDataOperation () {
 
     }
 
-    const parentPath = parentFile.value.path;
-
     const newFolder:FolderMenuItem = {
       id: generateID (),
       name: '新建文件夹',
@@ -39,6 +39,7 @@ function createFileDataOperation () {
       path: '',
       isFolder: true,
       fileSize: 0,
+      children: [],
       createTime: dateFormat ( new Date ().getTime () ),
       updateTime: dateFormat ( new Date ().getTime () ),
     };
@@ -53,7 +54,27 @@ function createFileDataOperation () {
 
   const createTXT = () => {
 
-    // do nothing
+    if ( !parentFile ) {
+
+      return false;
+
+    }
+
+    const newTXT:ExplorerFile = {
+      id: generateID (),
+      name: '新建TXT文档',
+      parentPath,
+      path: '',
+      fileType: 'TXT',
+      isFolder: false,
+      fileSize: 0,
+      createTime: dateFormat ( new Date ().getTime () ),
+      updateTime: dateFormat ( new Date ().getTime () ),
+    };
+
+    newTXT.path = pathResolve ( newTXT.parentPath, newTXT.name );
+
+    store.updateExplorerFile ( newTXT );
 
   };
 
