@@ -20,8 +20,6 @@ function createFileDataOperation () {
 
   const parentFile = computed ( () => store.parentFile );
 
-  const parentPath = parentFile?.value?.path;
-
   /**创建文件夹**/
 
   const createFolder = () => {
@@ -32,6 +30,8 @@ function createFileDataOperation () {
 
     }
 
+    const parentPath = parentFile.value.path;
+
     const newFolder:FolderMenuItem = {
       id: generateID (),
       name: '新建文件夹',
@@ -39,7 +39,6 @@ function createFileDataOperation () {
       path: '',
       isFolder: true,
       fileSize: 0,
-      children: [],
       createTime: dateFormat ( new Date ().getTime () ),
       updateTime: dateFormat ( new Date ().getTime () ),
     };
@@ -59,6 +58,8 @@ function createFileDataOperation () {
       return false;
 
     }
+
+    const parentPath = parentFile.value.path;
 
     const newTXT:ExplorerFile = {
       id: generateID (),
