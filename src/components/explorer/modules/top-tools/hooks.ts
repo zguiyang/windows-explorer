@@ -8,7 +8,9 @@ import { generateID, dateFormat } from 'quick-utils-js';
 
 import { renderIcon, pathResolve } from '@/helper/utils';
 
-import { useExplorerStore, CreateFileEnum, FolderMenuItem, ExplorerFile } from '@/store/explorer';
+import { useExplorerStore } from '@/store/explorer';
+
+import { CreateFileEnum, FolderMenuItem, ExplorerFile } from '@/helper/explorer-storage';
 
 /**
  * 创建各种文件操作
