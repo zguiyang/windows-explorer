@@ -4,7 +4,7 @@ import { dateFormat, generateID } from 'quick-utils-js';
 
 import { useExplorerStore } from '@/store/explorer';
 
-import { ROOT_DIR_NAME } from '@/lib/constant';
+import { ROOT_DIR_NAME, LOCAL_STORAGE_EXPLORER_NAME } from '@/lib/constant';
 
 import { ExplorerFileItem, FolderMenuItem, ExplorerStorage } from './explorer-type';
 
@@ -42,7 +42,7 @@ export function initExplorerStorage ( ) {
 
   } else {
 
-    localStorage.setItem ( 'explorer', JSON.stringify ( defaultExplorer ) );
+    localStorage.setItem ( LOCAL_STORAGE_EXPLORER_NAME, JSON.stringify ( defaultExplorer ) );
 
     store.updateExplorerFile ( DEFAULT_ROOT_EXPLORER_DATA );
 
@@ -56,7 +56,7 @@ export function initExplorerStorage ( ) {
 
 export function getExplorerStorage ( key?: keyof ExplorerStorage ): any {
 
-  const explorer = localStorage.getItem ( 'explorer' );
+  const explorer = localStorage.getItem ( LOCAL_STORAGE_EXPLORER_NAME );
 
   if ( !explorer ) {
 
@@ -78,7 +78,7 @@ export function updateExplorerStorage ( key: keyof ExplorerStorage, data: Explor
 
     explorer[ key ] = data;
 
-    localStorage.setItem ( 'explorer', JSON.stringify ( explorer ) );
+    localStorage.setItem ( LOCAL_STORAGE_EXPLORER_NAME, JSON.stringify ( explorer ) );
 
   }
 

@@ -7,6 +7,8 @@ export const enum CreateFileEnum {
   TXT = 'TXT',
 }
 
+// 文件模型，用于创建、展示、菜单
+
 export type ExplorerFileModel = {
   defaultName: string;
   fileType: ExplorerFileType | null;
