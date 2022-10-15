@@ -70,7 +70,7 @@ export function getExplorerStorage ( key?: keyof ExplorerStorage ): any {
 
 // 更新本地数据
 
-export function updateExplorerStorage ( key: keyof ExplorerStorage, data: ExplorerFileItem[] | FolderMenuItem[] | Array<ExplorerFileItem|FolderMenuItem> | FolderMenuItem ) {
+export function updateExplorerStorage ( key: keyof ExplorerStorage, data: ExplorerStorage[ keyof ExplorerStorage ] ) {
 
   const explorer = getExplorerStorage ();
 
