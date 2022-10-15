@@ -6,7 +6,7 @@ import { FileAddOutlined } from '@vicons/antd';
 
 import { CreateFileEnum } from '@/lib/explorer-type';
 
-import { createFileOperationMap } from '@/lib/explorer-utils';
+import { createFileOperation } from '@/lib/explorer-utils';
 
 import { renderIcon } from '@/helper/utils';
 
@@ -21,13 +21,9 @@ export function useTopToolsHooks () {
     },
   ];
 
-  const createOperationMap = createFileOperationMap ();
-
   const handleCreateMenuSelect = ( key: CreateFileEnum ) => {
 
-    const createFn = createOperationMap.get ( key );
-
-    createFn && createFn ();
+    createFileOperation ( key );
 
   };
 

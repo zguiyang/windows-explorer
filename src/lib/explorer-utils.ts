@@ -9,80 +9,111 @@ import { NEW_FOLDER_DEFAULT_NAME, NEW_TXT_DEFAULT_NAME } from '@/lib/constant';
 import { pathResolve } from '@/helper/utils';
 
 /**
- * 创建各种文件的操作方法map
+ * 检查当前目录下是否已存在相同的文件名
+ * @param { string } name 需要检查的文件名
+ * @param { ExplorerFileItem[] } list 当前目录文件列表
+ * @return { ExplorerFileItem | null }
  * **/
 
-export function createFileOperationMap () {
+export function checkExistingFileName ( name: string, list: ExplorerFileItem [] ):ExplorerFileItem | null {
+
+  return list.find ( it => it.name === name );
+
+}
+
+/**
+ * 创建各种文件的操作方法
+ * @param { CreateFileEnum } key 创建文件的类型
+ * **/
+
+export function createFileOperation ( key: CreateFileEnum ) {
 
   const store = useExplorerStore ();
 
   const parentFile = computed ( () => store.parentFile );
 
-  // const newFileItem: FolderMenuItem | ExplorerFileItem = {};
+  if ( !parentFile ) {
 
+    return false;
 
-  /**创建文件夹**/
+  }
 
-  const createFolder = () => {
+  const newFileItem: FolderMenuItem | ExplorerFileItem = {
+    id: generateID (),
+    name: '',
+    parentPath: parentFile.value.path,
+    path: '',
+    isFolder: true,
+    fileType: null,
+    fileSize: 0,
+    createTime: dateFormat ( new Date ().getTime () ),
+    updateTime: dateFormat ( new Date ().getTime () ),
+  };
 
-    if ( !parentFile ) {
+  /**
+   * 创建文件名称
+   * **/
 
-      return false;
+  const createFileName = ( str: string ): string => {
+
+    const haveItem = checkExistingFileName ( str, store.currentFiles );
+
+    console.log ( store.currentFiles );
+
+    if ( haveItem ) {
+
+      console.log ( str, haveItem.name, store.currentFiles );
+
+      const matchArr = str.match ( /（\d）/gi );
+
+      const matchIndex = matchArr ? Number ( matchArr[ 0 ].replace ( /（|）/, '' ) ) : -1;
+
+      console.log ( matchIndex );
+
+      return matchIndex > -1 ? `${ str }（${ matchIndex + 1 }）` : `${ str }（${matchIndex + 3}）`;
 
     }
 
-    const parentPath = parentFile.value.path;
-
-    const newFolder:FolderMenuItem = {
-      id: generateID (),
-      name: NEW_FOLDER_DEFAULT_NAME,
-      parentPath,
-      path: '',
-      isFolder: true,
-      fileSize: 0,
-      createTime: dateFormat ( new Date ().getTime () ),
-      updateTime: dateFormat ( new Date ().getTime () ),
-    };
-
-    newFolder.path = pathResolve ( newFolder.parentPath, newFolder.name );
-
-    store.updateExplorerFile ( newFolder );
+    return str;
 
   };
 
-  /**创建TXT文件**/
+  /*各种文件的具体执行的逻辑*/
 
-  const createTXT = () => {
+  switch ( key ) {
 
-    if ( !parentFile ) {
+    case CreateFileEnum.FOLDER:
 
-      return false;
+      console.log ( createFileName ( NEW_FOLDER_DEFAULT_NAME ), parentFile.value.path );
 
-    }
+      newFileItem.name = createFileName ( NEW_FOLDER_DEFAULT_NAME );
 
-    const parentPath = parentFile.value.path;
+      newFileItem.path = pathResolve ( parentFile.value.path, newFileItem.name );
 
-    const newTXT:ExplorerFileItem = {
-      id: generateID (),
-      name: NEW_TXT_DEFAULT_NAME,
-      parentPath,
-      path: '',
-      fileType: 'TXT',
-      isFolder: false,
-      fileSize: 0,
-      createTime: dateFormat ( new Date ().getTime () ),
-      updateTime: dateFormat ( new Date ().getTime () ),
-    };
+      break;
 
-    newTXT.path = pathResolve ( newTXT.parentPath, newTXT.name );
+    case CreateFileEnum.TXT:
 
-    store.updateExplorerFile ( newTXT );
+      newFileItem.isFolder = false;
 
-  };
+      newFileItem.name = createFileName ( NEW_TXT_DEFAULT_NAME );
 
-  return new Map ( [
-    [ CreateFileEnum.FOLDER, createFolder ],
-    [ CreateFileEnum.TXT, createTXT ],
-  ] );
+      newFileItem.fileType = CreateFileEnum.TXT;
+
+      newFileItem.path = pathResolve ( parentFile.value.path, newFileItem.name );
+
+      break;
+
+    default:
+
+      console.error ( '未知的创建操作' );
+
+      break;
+
+  }
+
+  console.log ( '新增：', newFileItem );
+
+  store.updateExplorerFile ( newFileItem );
 
 }
