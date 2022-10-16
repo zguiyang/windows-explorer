@@ -1,10 +1,12 @@
-import { NIcon, NSpace, DataTableColumn } from 'naive-ui';
+import { NSpace, DataTableColumn } from 'naive-ui';
 
-import { FolderFilled } from '@vicons/antd';
+import { renderIcon } from '@/helper/utils';
 
 import { useExplorerStore } from '@/store/explorer';
 
 import { ExplorerFileItem } from '@/lib/explorer-type';
+
+import { EXPLORER_FILE_MODEL_MAP } from '@/lib/constant';
 
 export function useTableListData () {
 
@@ -12,17 +14,15 @@ export function useTableListData () {
 
   const renderFolderName = ( row:ExplorerFileItem ) => {
 
+    const createFileModal = EXPLORER_FILE_MODEL_MAP[ row.fileType ];
+
     return h ( NSpace, {
       size: 8,
       align: 'center',
     }, {
       default: () => [
-        h ( NIcon, {
-          size: 28,
-          color: '#ffd767',
-        },
-        { default: () => h ( FolderFilled ),
-        } ),
+
+        createFileModal ? renderIcon ( createFileModal.fileIcon, createFileModal.fileIconProps ) : renderIcon (),
         row.name,
       ] } );
 
@@ -43,6 +43,7 @@ export function useTableListData () {
       title: '类型',
       key: 'fileType',
       width: 120,
+      render: ( row ) => row.fileTypeText || '--',
     },
     {
       title: '大小',
@@ -51,7 +52,7 @@ export function useTableListData () {
     },
   ];
 
-  const tableData = computed<ExplorerFileItem[]> ( () => store.currentFiles );
+  const tableData = computed ( () => store.currentFiles );
 
   return {
     tableColumns,

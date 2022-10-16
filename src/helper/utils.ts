@@ -1,16 +1,17 @@
 import { Component, h } from 'vue';
 
-import { NIcon } from 'naive-ui';
+import { NIcon, IconProps } from 'naive-ui';
 
-export function renderIcon ( icon: Component ) {
+import { FileOutlined } from '@vicons/antd';
 
-  return () => {
+export function renderIcon ( icon?: Component, props?: Omit<IconProps, 'component'> ) {
 
-    return h ( NIcon, null, {
-      default: () => h ( icon ),
-    } );
-
-  };
+  return h ( NIcon, props || {
+    size: 28,
+    color: '#b4b3b3',
+  }, {
+    default: () => h ( icon || FileOutlined ),
+  } );
 
 }
 

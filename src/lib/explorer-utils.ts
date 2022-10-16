@@ -4,7 +4,7 @@ import { useExplorerStore } from '@/store/explorer';
 
 import { CreateFileEnum, ExplorerFileItem, FolderMenuItem } from '@/lib/explorer-type';
 
-import { NEW_FOLDER_DEFAULT_NAME, NEW_TXT_DEFAULT_NAME } from '@/lib/constant';
+import { NEW_FOLDER_DEFAULT_NAME, NEW_TXT_DEFAULT_NAME, EXPLORER_FILE_MODEL_MAP } from '@/lib/constant';
 
 import { pathResolve } from '@/helper/utils';
 
@@ -15,9 +15,9 @@ import { pathResolve } from '@/helper/utils';
  * @return { ExplorerFileItem | null }
  * **/
 
-export function checkExistingFileName ( name: string, list: ExplorerFileItem [] ):ExplorerFileItem[] {
+export function checkExistingFileName ( name: string, list: ExplorerFileItem[] ) {
 
-  return list.filter ( item => item.name.includes ( name ) );
+  return list.filter ( ( item ) => item.name.includes ( name ) );
 
 }
 
@@ -29,6 +29,8 @@ export function checkExistingFileName ( name: string, list: ExplorerFileItem [] 
 export function createFileOperation ( key: CreateFileEnum ) {
 
   const store = useExplorerStore ();
+
+  const createFileModel = EXPLORER_FILE_MODEL_MAP[ key ];
 
   const parentFile = computed ( () => store.parentFile );
 
@@ -47,6 +49,7 @@ export function createFileOperation ( key: CreateFileEnum ) {
     path: '',
     isFolder: true,
     fileType: null,
+    fileTypeText: createFileModel.fileTypeText,
     fileSize: 0,
     createTime: dateFormat ( new Date ().getTime () ),
     updateTime: dateFormat ( new Date ().getTime () ),
@@ -58,6 +61,8 @@ export function createFileOperation ( key: CreateFileEnum ) {
 
   const createFileName = ( str: string ): string => {
 
+    // @ts-ignore
+
     const haveItems = checkExistingFileName ( str, currentFiles.value );
 
     if ( haveItems.length ) {
@@ -65,8 +70,6 @@ export function createFileOperation ( key: CreateFileEnum ) {
       const lastItem = haveItems[ haveItems.length - 1 ];
 
       const matchIndex = Number ( lastItem.name.replace ( /\D/gi, '' ) );
-
-      console.log ( lastItem.name.replace ( /\D/gi, '' ) );
 
       return isNaN ( matchIndex ) ? `${ str }（${ 2 }）` : `${ str }（${matchIndex + 1}）`;
 
@@ -82,9 +85,9 @@ export function createFileOperation ( key: CreateFileEnum ) {
 
     case CreateFileEnum.FOLDER:
 
-      console.log ( createFileName ( NEW_FOLDER_DEFAULT_NAME ), parentFile.value.path );
-
       newFileItem.name = createFileName ( NEW_FOLDER_DEFAULT_NAME );
+
+      newFileItem.fileType = CreateFileEnum.FOLDER;
 
       newFileItem.path = pathResolve ( parentFile.value.path, newFileItem.name );
 

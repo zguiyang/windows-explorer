@@ -14,10 +14,10 @@ export function useTopToolsHooks () {
 
   const createMenus: DropdownOption[] = [
     {
-      label: '文件夹', key: CreateFileEnum.FOLDER, icon: renderIcon ( FolderOutline ),
+      label: '文件夹', key: CreateFileEnum.FOLDER, icon: () => renderIcon ( FolderOutline, { color: '#0d7dd1', size: 20 } ),
     },
     {
-      label: 'TXT文件', key: CreateFileEnum.TXT, icon: renderIcon ( FileAddOutlined ),
+      label: 'TXT文件', key: CreateFileEnum.TXT, icon: () => renderIcon ( FileAddOutlined, { color: '#0d7dd1', size: 20 } ),
     },
   ];
 

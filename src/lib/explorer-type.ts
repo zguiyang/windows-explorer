@@ -1,4 +1,6 @@
-import { VNodeChild } from 'vue';
+import { Component } from 'vue';
+
+import { IconProps } from 'naive-ui';
 
 export type ExplorerFileType = 'TXT' | 'JPG' | 'PNG' | 'MP4' | 'FOLDER';
 
@@ -10,9 +12,11 @@ export const enum CreateFileEnum {
 // 文件模型，用于创建、展示、菜单
 
 export type ExplorerFileModel = {
-  defaultName: string;
-  fileType: ExplorerFileType | null;
-  fileIcon: VNodeChild | ( () => VNodeChild ),
+  defaultName: string,
+  fileType: ExplorerFileType | null,
+  fileTypeText?: string,
+  fileIcon?: Component,
+  fileIconProps?: IconProps,
 };
 
 export type ExplorerFileItem = {
@@ -21,6 +25,7 @@ export type ExplorerFileItem = {
   parentPath: string | null, // 父级目录
   path:string, // 文件本身全路径
   fileType?: ExplorerFileType, //文件本身类型
+  fileTypeText?: string; // 文件类型名称
   isFolder: boolean, // 是否是文件夹
   fileSize: number | string, // 文件大小， 字节
   children?: ExplorerFileItem[], // 如果是文件夹，则存放其目录下的文件，无限级
