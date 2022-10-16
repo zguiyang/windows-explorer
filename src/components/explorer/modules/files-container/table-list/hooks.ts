@@ -1,8 +1,12 @@
-import { NSpace, DataTableColumn } from 'naive-ui';
+import { h } from 'vue';
 
-import { renderIcon } from '@/helper/utils';
+import { NSpace, NInput, DataTableColumn } from 'naive-ui';
+
+import { renderIcon, pathResolve } from '@/helper/utils';
 
 import { useExplorerStore } from '@/store/explorer';
+
+import { checkExistingFileName } from '@/lib/explorer-utils';
 
 import { ExplorerFileItem } from '@/lib/explorer-type';
 
@@ -12,7 +16,85 @@ export function useTableListData () {
 
   const store = useExplorerStore ();
 
-  const renderFolderName = ( row:ExplorerFileItem ) => {
+  const tableData = computed ( () => store.currentFiles );
+
+  const editFileId = computed ( () => store.editFileId );
+
+  const renderEditNameInput = ( row: ExplorerFileItem, index: number ) => {
+
+    const inputRef = ref<typeof NInput | null> ( null );
+
+    const inputStatus = ref<'success' | 'warning' | 'error'| undefined> ( undefined );
+
+    return h ( NInput, {
+      value: row.name,
+      status: inputStatus.value,
+      ref: inputRef,
+      onVnodeMounted () {
+
+        inputRef.value && inputRef.value.focus ();
+
+      },
+      onUpdateValue ( v ) {
+
+        tableData.value[ index ].name = v;
+
+      },
+      onFocus () {
+
+        inputRef.value && inputRef.value.select ();
+
+      },
+      onBlur () {
+
+        if ( !checkExistingFileName ( row.name, tableData.value ) ) {
+
+          inputStatus.value = 'success';
+
+          row.path = pathResolve ( row.parentPath, row.name );
+
+          store.updateOneFile ( row );
+
+          inputRef.value = null;
+
+        } else {
+
+          inputStatus.value = 'error';
+
+        }
+
+      },
+      onKeydown ( e:KeyboardEvent ) {
+
+        if ( e.key === 'Enter' ) {
+
+          if ( !checkExistingFileName ( row.name, tableData.value ) ) {
+
+            inputStatus.value = 'success';
+
+            row.path = pathResolve ( row.parentPath, row.name );
+
+            store.updateOneFile ( row );
+
+            inputRef.value = null;
+
+          } else {
+
+            inputStatus.value = 'error';
+
+            console.log ( inputStatus.value );
+
+          }
+
+        }
+
+      },
+    } );
+
+  };
+
+
+  const renderFolderName = ( row:ExplorerFileItem, index ) => {
 
     const createFileModal = EXPLORER_FILE_MODEL_MAP[ row.fileType ];
 
@@ -23,12 +105,18 @@ export function useTableListData () {
       default: () => [
 
         createFileModal ? renderIcon ( createFileModal.fileIcon, createFileModal.fileIconProps ) : renderIcon (),
-        row.name,
+        editFileId.value === row.id ? renderEditNameInput ( row, index ) : row.name,
       ] } );
 
   };
 
   const tableColumns: DataTableColumn<ExplorerFileItem>[] = [
+
+    // {
+    //   type: 'selection',
+    //   width: 40,
+    // },
+
     {
       title: '名称',
       key: 'name',
@@ -52,11 +140,9 @@ export function useTableListData () {
     },
   ];
 
-  const tableData = computed ( () => store.currentFiles );
-
   return {
-    tableColumns,
     tableData,
+    tableColumns,
   };
 
 }

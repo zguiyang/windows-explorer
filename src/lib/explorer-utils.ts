@@ -4,7 +4,7 @@ import { useExplorerStore } from '@/store/explorer';
 
 import { CreateFileEnum, ExplorerFileItem, FolderMenuItem } from '@/lib/explorer-type';
 
-import { NEW_FOLDER_DEFAULT_NAME, NEW_TXT_DEFAULT_NAME, EXPLORER_FILE_MODEL_MAP } from '@/lib/constant';
+import { EXPLORER_FILE_MODEL_MAP, NEW_FOLDER_DEFAULT_NAME, NEW_TXT_DEFAULT_NAME } from '@/lib/constant';
 
 import { pathResolve } from '@/helper/utils';
 
@@ -17,7 +17,7 @@ import { pathResolve } from '@/helper/utils';
 
 export function checkExistingFileName ( name: string, list: ExplorerFileItem[] ) {
 
-  return list.filter ( ( item ) => item.name.includes ( name ) );
+  return list.find ( ( item ) => item.name === name );
 
 }
 
@@ -63,7 +63,7 @@ export function createFileOperation ( key: CreateFileEnum ) {
 
     // @ts-ignore
 
-    const haveItems = checkExistingFileName ( str, currentFiles.value );
+    const haveItems = currentFiles.value.filter ( file => file.name.includes ( str ) );
 
     if ( haveItems.length ) {
 
@@ -71,7 +71,7 @@ export function createFileOperation ( key: CreateFileEnum ) {
 
       const matchIndex = Number ( lastItem.name.replace ( /\D/gi, '' ) );
 
-      return isNaN ( matchIndex ) ? `${ str }（${ 2 }）` : `${ str }（${matchIndex + 1}）`;
+      return matchIndex <= 0 ? `${ str }（${ 2 }）` : `${ str }（${ matchIndex + 1 }）`;
 
     }
 

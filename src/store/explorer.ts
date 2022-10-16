@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 
-import { concat } from 'lodash';
+import { concat, findIndex } from 'lodash';
 
 import { initExplorerStorage, getExplorerFileList, getFolderMenuList, getCurrentFiles, getParentFile,
   updateExplorerFileListStorage, updateFolderMenuListStorage, updateParentFileStorage, updateCurrentFilesStorage } from '@/lib/explorer-storage';
@@ -17,6 +17,8 @@ export const useExplorerStore = defineStore ( 'explorer', () => {
   const folderMenuList = ref<FolderMenuItem[]> ( getFolderMenuList () );
 
   const currentFiles = ref<Array<ExplorerFileItem|FolderMenuItem>> ( getCurrentFiles () );
+
+  const editFileId = ref<string|null> ( null );
 
   const parentFile = ref<FolderMenuItem|null> ( getParentFile () );
 
@@ -35,6 +37,35 @@ export const useExplorerStore = defineStore ( 'explorer', () => {
     updateCurrentFileList ();
 
     updateFolderMenuList ();
+
+    updateEditFileId ( payload.id );
+
+  }
+
+  function updateEditFileId ( id: string | null ) {
+
+    editFileId.value = id;
+
+  }
+
+  function updateOneFile ( payload: ExplorerFileItem ) {
+
+    const replaceIndex = findIndex ( explorerFileList.value, file => file.id === editFileId.value );
+
+    if ( replaceIndex > -1 ) {
+
+      explorerFileList.value.splice ( replaceIndex, 1, payload );
+
+      updateExplorerFileListStorage ( explorerFileList.value );
+
+      updateCurrentFileList ();
+
+      updateFolderMenuList ();
+
+      updateEditFileId ( null );
+
+    }
+
 
   }
 
@@ -96,10 +127,13 @@ export const useExplorerStore = defineStore ( 'explorer', () => {
     explorerFileList,
     folderMenuList,
     parentFile,
+    editFileId,
     currentFiles,
     initExplorerData,
     updateExplorerFile,
     updateParentFile,
+    updateEditFileId,
+    updateOneFile,
   };
 
 } );
