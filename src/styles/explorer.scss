@@ -77,10 +77,10 @@
 	@apply w-full relative flex justify-start items-start;
 	.explorer-sidebar-wrapper {
 		overflow: auto;
-		width: 180px;
+		width: 200px;
 	}
 	.explorer-container-wrapper {
-		width: calc(100% - 180px);
+		width: calc(100% - 200px);
 	}
 }
 .explorer-left-sidebar-wrapper {

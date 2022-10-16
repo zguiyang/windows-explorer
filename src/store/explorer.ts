@@ -1,56 +1,14 @@
 import { defineStore } from 'pinia';
 
+import { concat } from 'lodash';
+
 import { initExplorerStorage, getExplorerFileList, getFolderMenuList, getCurrentFiles, getParentFile,
   updateExplorerFileListStorage, updateFolderMenuListStorage, updateParentFileStorage, updateCurrentFilesStorage } from '@/lib/explorer-storage';
 
+import { createFolderMenuList } from '@/lib/explorer-utils';
+
 import { ExplorerFileItem, FolderMenuItem } from '@/lib/explorer-type';
 
-// 生成文件目录tree
-
-function createFolderMenuList ( files: ExplorerFileItem[] ):FolderMenuItem[] | null {
-
-  const res: FolderMenuItem[] = [];
-
-  // const hashTable = {};
-  //
-
-  const data = files.filter ( file => file.isFolder );
-
-  const getChildren = ( res, parentPath ) => {
-
-    data.forEach ( ( item, index ) => {
-
-      if ( item.path === parentPath ) {
-
-        const newItem = { ...item, children: [] };
-
-        res.push ( newItem );
-
-        if ( data.splice ( index, 1 ).length ) {
-
-          getChildren ( newItem.children, newItem.path );
-
-        }
-
-      } else {
-
-        if ( !res.find ( it => it.path === item.path ) ) {
-
-          res.push ( item );
-
-        }
-
-      }
-
-    } );
-
-  };
-
-  getChildren ( res, '/' );
-
-  return res;
-
-}
 
 export const useExplorerStore = defineStore ( 'explorer', () => {
 
@@ -82,21 +40,29 @@ export const useExplorerStore = defineStore ( 'explorer', () => {
 
   function updateCurrentFileList ( ) {
 
+    const folderItems: ExplorerFileItem[] = [];
+
+    const fileItems:ExplorerFileItem[] = [];
+
+    if ( !parentFile.value ) {
+
+      return false;
+
+    }
+
     explorerFileList.value.forEach ( item => {
 
       if ( item.parentPath === parentFile.value.path ) {
 
-        if ( !currentFiles.value.find ( file => file.path === item.path ) ) {
-
-          currentFiles.value.push ( item );
-
-        }
+        item.isFolder ? folderItems.push ( item ) : fileItems.push ( item );
 
       }
 
     } );
 
-    updateCurrentFilesStorage ( currentFiles.value );
+    currentFiles.value = concat ( folderItems, fileItems );
+
+    updateCurrentFilesStorage ( currentFiles.value.sort ( ( a:any, b:any ) => b - a ) );
 
   }
 

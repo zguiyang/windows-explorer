@@ -15,9 +15,9 @@ import { pathResolve } from '@/helper/utils';
  * @return { ExplorerFileItem | null }
  * **/
 
-export function checkExistingFileName ( name: string, list: ExplorerFileItem [] ):ExplorerFileItem | null {
+export function checkExistingFileName ( name: string, list: ExplorerFileItem [] ):ExplorerFileItem[] {
 
-  return list.find ( it => it.name === name );
+  return list.filter ( item => item.name.includes ( name ) );
 
 }
 
@@ -31,6 +31,8 @@ export function createFileOperation ( key: CreateFileEnum ) {
   const store = useExplorerStore ();
 
   const parentFile = computed ( () => store.parentFile );
+
+  const currentFiles = computed ( () => store.currentFiles );
 
   if ( !parentFile ) {
 
@@ -56,21 +58,17 @@ export function createFileOperation ( key: CreateFileEnum ) {
 
   const createFileName = ( str: string ): string => {
 
-    const haveItem = checkExistingFileName ( str, store.currentFiles );
+    const haveItems = checkExistingFileName ( str, currentFiles.value );
 
-    console.log ( store.currentFiles );
+    if ( haveItems.length ) {
 
-    if ( haveItem ) {
+      const lastItem = haveItems[ haveItems.length - 1 ];
 
-      console.log ( str, haveItem.name, store.currentFiles );
+      const matchIndex = Number ( lastItem.name.replace ( /\D/gi, '' ) );
 
-      const matchArr = str.match ( /（\d）/gi );
+      console.log ( lastItem.name.replace ( /\D/gi, '' ) );
 
-      const matchIndex = matchArr ? Number ( matchArr[ 0 ].replace ( /（|）/, '' ) ) : -1;
-
-      console.log ( matchIndex );
-
-      return matchIndex > -1 ? `${ str }（${ matchIndex + 1 }）` : `${ str }（${matchIndex + 3}）`;
+      return isNaN ( matchIndex ) ? `${ str }（${ 2 }）` : `${ str }（${matchIndex + 1}）`;
 
     }
 
@@ -112,8 +110,57 @@ export function createFileOperation ( key: CreateFileEnum ) {
 
   }
 
-  console.log ( '新增：', newFileItem );
-
   store.updateExplorerFile ( newFileItem );
+
+}
+
+// 生成文件目录tree
+
+export function createFolderMenuList ( files: ExplorerFileItem[] ):FolderMenuItem[] | null {
+
+  const res: FolderMenuItem[] = [];
+
+  const hashTable:Record<string, Partial<ExplorerFileItem>> = {};
+
+  const folderList = files.filter ( item => item.isFolder );
+
+  for ( const item of folderList ) {
+
+    hashTable[ item.path ] = {
+      ...item,
+      children: hashTable[ item.path ] ? hashTable[ item.path ].children : null,
+    };
+
+    const temp = hashTable[ item.path ] as ExplorerFileItem;
+
+    if ( !item.parentPath ) {
+
+      res.push ( temp );
+
+    } else {
+
+      if ( !hashTable[ item.parentPath ] ) {
+
+        hashTable[ item.parentPath ] = {
+          children: [],
+        };
+
+      }
+
+      if ( hashTable[ item.parentPath ].children ) {
+
+        hashTable[ item.parentPath ].children.push ( temp );
+
+      } else {
+
+        hashTable[ item.parentPath ].children = [ temp ];
+
+      }
+
+    }
+
+  }
+
+  return res;
 
 }
