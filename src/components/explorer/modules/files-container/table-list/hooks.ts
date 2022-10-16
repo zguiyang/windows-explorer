@@ -12,19 +12,23 @@ import { ExplorerFileItem } from '@/lib/explorer-type';
 
 import { EXPLORER_FILE_MODEL_MAP } from '@/lib/constant';
 
+import { cloneDeep } from 'lodash';
+
 export function useTableListData () {
 
   const store = useExplorerStore ();
 
   const tableData = computed ( () => store.currentFiles );
 
+  const originalTableData = cloneDeep ( store.currentFiles );
+
   const editFileId = computed ( () => store.editFileId );
 
+  const inputRef = ref<typeof NInput | null> ( null );
+
+  const inputStatus = ref<'success' | 'warning' | 'error'| undefined> ( undefined );
+
   const renderEditNameInput = ( row: ExplorerFileItem, index: number ) => {
-
-    const inputRef = ref<typeof NInput | null> ( null );
-
-    const inputStatus = ref<'success' | 'warning' | 'error'| undefined> ( undefined );
 
     return h ( NInput, {
       value: row.name,
@@ -47,7 +51,7 @@ export function useTableListData () {
       },
       onBlur () {
 
-        if ( !checkExistingFileName ( row.name, tableData.value ) ) {
+        if ( !checkExistingFileName ( row.name, originalTableData ) ) {
 
           inputStatus.value = 'success';
 
@@ -68,7 +72,7 @@ export function useTableListData () {
 
         if ( e.key === 'Enter' ) {
 
-          if ( !checkExistingFileName ( row.name, tableData.value ) ) {
+          if ( !checkExistingFileName ( row.name, originalTableData ) ) {
 
             inputStatus.value = 'success';
 
