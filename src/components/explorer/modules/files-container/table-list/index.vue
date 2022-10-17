@@ -1,6 +1,6 @@
 <template>
 <div class="files-container-table-list">
-<n-data-table :row-key="(row) => row.id" :columns="tableColumns" :data="tableData" virtual-scroll>
+<n-data-table :row-key="(row) => row.id" :columns="tableColumns" :data="tableData" :row-props="tableRowProps" virtual-scroll>
   <template #empty>
     <n-space vertical :size="12">
       <n-p style="text-align: center;">
@@ -27,12 +27,13 @@ export default defineComponent ( {
   components: { Archive16Regular },
   setup () {
 
-    const { tableColumns, tableData } = useTableListData ();
+    const { tableColumns, tableData, tableRowProps } = useTableListData ();
 
 
     return {
       tableData,
       tableColumns,
+      tableRowProps,
     };
 
   },

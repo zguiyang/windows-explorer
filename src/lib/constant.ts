@@ -1,6 +1,6 @@
 import { FolderFilled, FileTextTwotone } from '@vicons/antd';
 
-import { CreateFileEnum, ExplorerFileType, ExplorerFileModel } from '@/lib/explorer-type';
+import { ExplorerFileTypeEnum, ExplorerFileModel } from '@/lib/explorer-type';
 
 export const LOCAL_STORAGE_EXPLORER_NAME = 'explorer';
 
@@ -14,10 +14,10 @@ export const NEW_TXT_DEFAULT_NAME = '新建文本文件';
  * 定义通用的文件类型
  * **/
 
-export const EXPLORER_FILE_MODEL_MAP:Partial<Record<ExplorerFileType, ExplorerFileModel>> = {
+export const EXPLORER_FILE_MODEL_MAP:Partial<Record<ExplorerFileTypeEnum, ExplorerFileModel>> = {
   FOLDER: {
     defaultName: NEW_FOLDER_DEFAULT_NAME,
-    fileType: CreateFileEnum.FOLDER,
+    fileType: ExplorerFileTypeEnum.FOLDER,
     fileIcon: FolderFilled,
     fileTypeText: '文件夹',
     fileIconProps: {
@@ -27,7 +27,7 @@ export const EXPLORER_FILE_MODEL_MAP:Partial<Record<ExplorerFileType, ExplorerFi
   },
   TXT: {
     defaultName: NEW_TXT_DEFAULT_NAME,
-    fileType: CreateFileEnum.TXT,
+    fileType: ExplorerFileTypeEnum.TXT,
     fileTypeText: 'TXT文件',
     fileIcon: FileTextTwotone,
     fileIconProps: {

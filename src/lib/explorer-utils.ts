@@ -2,7 +2,7 @@ import { dateFormat, generateID } from 'quick-utils-js';
 
 import { useExplorerStore } from '@/store/explorer';
 
-import { CreateFileEnum, ExplorerFileItem, FolderMenuItem } from '@/lib/explorer-type';
+import { ExplorerFileTypeEnum, ExplorerFileItem, FolderMenuItem } from '@/lib/explorer-type';
 
 import { EXPLORER_FILE_MODEL_MAP, NEW_FOLDER_DEFAULT_NAME, NEW_TXT_DEFAULT_NAME } from '@/lib/constant';
 
@@ -23,10 +23,10 @@ export function checkExistingFileName ( name: string, list: ExplorerFileItem[] )
 
 /**
  * 创建各种文件的操作方法
- * @param { CreateFileEnum } key 创建文件的类型
+ * @param { ExplorerFileTypeEnum } key 创建文件的类型
  * **/
 
-export function createFileOperation ( key: CreateFileEnum ) {
+export function createFileOperation ( key: ExplorerFileTypeEnum ) {
 
   const store = useExplorerStore ();
 
@@ -83,23 +83,23 @@ export function createFileOperation ( key: CreateFileEnum ) {
 
   switch ( key ) {
 
-    case CreateFileEnum.FOLDER:
+    case ExplorerFileTypeEnum.FOLDER:
 
       newFileItem.name = createFileName ( NEW_FOLDER_DEFAULT_NAME );
 
-      newFileItem.fileType = CreateFileEnum.FOLDER;
+      newFileItem.fileType = ExplorerFileTypeEnum.FOLDER;
 
       newFileItem.path = pathResolve ( parentFile.value.path, newFileItem.name );
 
       break;
 
-    case CreateFileEnum.TXT:
+    case ExplorerFileTypeEnum.TXT:
 
       newFileItem.isFolder = false;
 
       newFileItem.name = createFileName ( NEW_TXT_DEFAULT_NAME );
 
-      newFileItem.fileType = CreateFileEnum.TXT;
+      newFileItem.fileType = ExplorerFileTypeEnum.TXT;
 
       newFileItem.path = pathResolve ( parentFile.value.path, newFileItem.name );
 

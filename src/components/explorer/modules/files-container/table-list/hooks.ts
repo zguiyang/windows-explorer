@@ -6,7 +6,7 @@ import { renderIcon, pathResolve } from '@/helper/utils';
 
 import { useExplorerStore } from '@/store/explorer';
 
-import { ExplorerFileItem } from '@/lib/explorer-type';
+import { ExplorerFileItem, ExplorerFileTypeEnum } from '@/lib/explorer-type';
 
 import { EXPLORER_FILE_MODEL_MAP } from '@/lib/constant';
 
@@ -93,7 +93,6 @@ export function useTableListData () {
 
   };
 
-
   // 渲染文件名称组件
 
   const renderFolderName = ( row:ExplorerFileItem ) => {
@@ -144,8 +143,30 @@ export function useTableListData () {
     },
   ];
 
+  const tableRowProps = ( row: ExplorerFileItem ) => {
+
+    return {
+      style: 'cursor: pointer;',
+      onClick: () => {
+
+        if ( row.fileType !== ExplorerFileTypeEnum.FOLDER ) {
+
+          console.log ( '暂不支持预览文件哦' );
+
+        } else {
+
+          console.log ( '进入文件夹：', row.name );
+
+        }
+
+      },
+    };
+
+  };
+
   return {
     tableData,
+    tableRowProps,
     tableColumns,
   };
 
