@@ -113,6 +113,8 @@ export const useExplorerStore = defineStore ( 'explorer', () => {
 
     updateParentFileStorage ( data );
 
+    updateCurrentFileList ();
+
   }
 
   /**初始化结构数据**/

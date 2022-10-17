@@ -155,7 +155,7 @@ export function useTableListData () {
 
         } else {
 
-          console.log ( '进入文件夹：', row.name );
+          store.updateParentFile ( row );
 
         }
 
