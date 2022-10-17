@@ -22,7 +22,7 @@ export function useTableListData () {
 
   const nameInputValue = ref ( '' );
 
-  const inputStatus = ref<'success' | 'warning' | 'error'| undefined> ( undefined );
+  const inputStatus = ref<'success' | 'warning' | 'error'| undefined> ( 'success' );
 
   // 渲染文件名称编辑输入框
 
@@ -38,7 +38,7 @@ export function useTableListData () {
 
         inputStatus.value = 'success';
 
-      } else if ( tableData.value.filter ( item => item.name === nameInputValue.value ).length < 2 ) {
+      } else if ( !tableData.value.find ( item => item.name === nameInputValue.value && item.fileType === row.fileType ) ) {
 
         inputStatus.value = 'success';
 
