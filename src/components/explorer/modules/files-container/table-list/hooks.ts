@@ -6,89 +6,85 @@ import { renderIcon, pathResolve } from '@/helper/utils';
 
 import { useExplorerStore } from '@/store/explorer';
 
-import { checkExistingFileName } from '@/lib/explorer-utils';
-
 import { ExplorerFileItem } from '@/lib/explorer-type';
 
 import { EXPLORER_FILE_MODEL_MAP } from '@/lib/constant';
-
-import { cloneDeep } from 'lodash';
 
 export function useTableListData () {
 
   const store = useExplorerStore ();
 
-  const tableData = computed ( () => store.currentFiles );
-
-  const originalTableData = cloneDeep ( store.currentFiles );
+  const tableData = computed<ExplorerFileItem[]> ( () => store.currentFiles );
 
   const editFileId = computed ( () => store.editFileId );
 
-  const inputRef = ref<typeof NInput | null> ( null );
+  const nameInputRef = ref<typeof NInput | null> ( null );
+
+  const nameInputValue = ref ( '' );
 
   const inputStatus = ref<'success' | 'warning' | 'error'| undefined> ( undefined );
 
-  const renderEditNameInput = ( row: ExplorerFileItem, index: number ) => {
+  // 渲染文件名称编辑输入框
+
+  const renderEditNameInput = ( row: ExplorerFileItem ) => {
+
+    const updateFileItemName = () => {
+
+      if ( !nameInputValue.value ) {
+
+        nameInputValue.value = row.name;
+
+        store.updateEditFileId ( null );
+
+        inputStatus.value = 'success';
+
+      } else if ( tableData.value.filter ( item => item.name === nameInputValue.value ).length < 2 ) {
+
+        inputStatus.value = 'success';
+
+        row.name = nameInputValue.value;
+
+        row.path = pathResolve ( row.parentPath, nameInputValue.value );
+
+        store.updateOneFile ( row );
+
+      } else {
+
+        inputStatus.value = 'error';
+
+      }
+
+    };
 
     return h ( NInput, {
-      value: row.name,
+      value: nameInputValue.value,
       status: inputStatus.value,
-      ref: inputRef,
+      ref: nameInputRef,
       onVnodeMounted () {
 
-        inputRef.value && inputRef.value.focus ();
+        nameInputRef.value && nameInputRef.value.focus ();
 
       },
-      onUpdateValue ( v ) {
+      onUpdateValue ( val:string ) {
 
-        tableData.value[ index ].name = v;
+        nameInputValue.value = val;
 
       },
       onFocus () {
 
-        inputRef.value && inputRef.value.select ();
+        nameInputRef.value && nameInputRef.value.select ();
 
       },
       onBlur () {
 
-        if ( !checkExistingFileName ( row.name, originalTableData ) ) {
-
-          inputStatus.value = 'success';
-
-          row.path = pathResolve ( row.parentPath, row.name );
-
-          store.updateOneFile ( row );
-
-          inputRef.value = null;
-
-        } else {
-
-          inputStatus.value = 'error';
-
-        }
+        updateFileItemName ();
 
       },
       onKeydown ( e:KeyboardEvent ) {
 
         if ( e.key === 'Enter' ) {
 
-          if ( !checkExistingFileName ( row.name, originalTableData ) ) {
-
-            inputStatus.value = 'success';
-
-            row.path = pathResolve ( row.parentPath, row.name );
-
-            store.updateOneFile ( row );
-
-            inputRef.value = null;
-
-          } else {
-
-            inputStatus.value = 'error';
-
-            console.log ( inputStatus.value );
-
-          }
+          updateFileItemName ();
 
         }
 
@@ -98,9 +94,13 @@ export function useTableListData () {
   };
 
 
-  const renderFolderName = ( row:ExplorerFileItem, index ) => {
+  // 渲染文件名称组件
+
+  const renderFolderName = ( row:ExplorerFileItem ) => {
 
     const createFileModal = EXPLORER_FILE_MODEL_MAP[ row.fileType ];
+
+    nameInputValue.value = row.name;
 
     return h ( NSpace, {
       size: 8,
@@ -109,7 +109,7 @@ export function useTableListData () {
       default: () => [
 
         createFileModal ? renderIcon ( createFileModal.fileIcon, createFileModal.fileIconProps ) : renderIcon (),
-        editFileId.value === row.id ? renderEditNameInput ( row, index ) : row.name,
+        editFileId.value === row.id ? renderEditNameInput ( row ) : row.name,
       ] } );
 
   };
