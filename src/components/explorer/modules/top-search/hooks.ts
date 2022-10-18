@@ -8,6 +8,8 @@ export function useTopSearchData () {
 
   const parentFile = computed ( () => store.parentFile );
 
+  const isHaveParentFolder = computed ( () => parentFile.value?.path === '/' );
+
   const navigationHistoryList = ref<string[]> ( [] );
 
   const navigationInputVal = ref<string | null> ( null );
@@ -26,17 +28,17 @@ export function useTopSearchData () {
 
   const navigationInputChange = ( val: string | null ) => {
 
-    console.log ( val );
+    if ( val !== '/' ) {
 
-    navigationHistoryList.value = store.navigationHistoryList.filter ( folder => folder.path.includes ( val ) ).map ( item => item.path );
+      navigationHistoryList.value = store.navigationHistoryList.filter ( folder => folder.path.includes ( val ) ).map ( item => item.path );
+
+    }
 
   };
 
   const gotoTargetFolder = () => {
 
-    const folderList = flatTreeArray ( store.folderMenuList || [] );
-
-    const targetFolder = folderList.find ( folder => folder.path === navigationInputVal.value );
+    const targetFolder = store.explorerFileList.find ( folder => folder.path === navigationInputVal.value && folder.isFolder );
 
     if ( !targetFolder ) {
 
@@ -61,8 +63,43 @@ export function useTopSearchData () {
   return {
     navigationInputVal,
     navigationHistoryList,
+    isHaveParentFolder,
     navigationInputChange,
     gotoTargetFolder,
+  };
+
+}
+
+// 导航操作
+
+export function useNavigationOperation () {
+
+  const store = useExplorerStore ();
+
+  const parentFile = computed ( () => store.parentFile );
+
+  const goToSuperiorFolder = () => {
+
+    if ( parentFile.value?.parentPath ) {
+
+      const targetFolder = store.explorerFileList.find ( folder => folder.path === parentFile.value.parentPath && folder.isFolder );
+
+      if ( !targetFolder ) {
+
+        console.error ( '不存在此目录' );
+
+      } else {
+
+        store.updateParentFile ( targetFolder );
+
+      }
+
+    }
+
+  };
+
+  return {
+    goToSuperiorFolder,
   };
 
 }

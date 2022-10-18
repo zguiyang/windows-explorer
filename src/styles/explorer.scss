@@ -10,8 +10,13 @@
 		background-color: transparent;
 		transition: all .3s;
 		cursor: pointer;
-		&:hover {
-			background-color: #eaeaea;
+		&:not(.disabled) {
+			&:hover {
+				background-color: #eaeaea;
+			}
+		}
+		&.disabled {
+			@apply cursor-not-allowed disabled:opacity-75;
 		}
 	}
 	.dropdown-menu-button {

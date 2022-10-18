@@ -24,7 +24,8 @@
         </n-popover>
         <n-popover trigger="hover">
           <template #trigger>
-              <span class="operation-button">
+              <span class="operation-button" :class="{'disabled': isHaveParentFolder }"
+                    @click.stop="goToSuperiorFolder">
                 <n-icon>
                   <arrow-up-outlined></arrow-up-outlined>
                 </n-icon>
@@ -35,10 +36,11 @@
       </div>
       <div class="navigation-wrap">
         <div class="navigation-input">
-          <n-auto-complete style="width:600px" clearable v-model:value="navigationInputVal"
+          <n-input style="width:600px" clearable v-model:value="navigationInputVal"
           :input-props="{
             autocomplete: 'disabled'
-         }" @update:value="navigationInputChange" :options="navigationHistoryList" @keydown.enter="gotoTargetFolder">
+         }" @update:value="navigationInputChange"
+           @keydown.enter="gotoTargetFolder">
             <template #prefix>
               <n-icon :size="26" color="#ffd767">
                 <folder-filled></folder-filled>
@@ -47,7 +49,7 @@
 <!--                <computer-filled></computer-filled>-->
 <!--              </n-icon>-->
             </template>
-          </n-auto-complete>
+          </n-input>
         </div>
         <div class="navigation-input-action">
           <n-button quaternary>
@@ -83,20 +85,25 @@ import { Refresh } from '@vicons/ionicons5';
 
 import { ComputerFilled } from '@vicons/material';
 
-import { useTopSearchData } from './hooks';
+import { useTopSearchData, useNavigationOperation } from './hooks';
 
 export default defineComponent ( {
   name: 'explorer-top-search',
   components: { ArrowLeftOutlined, ArrowRightOutlined, ArrowUpOutlined, Refresh, FolderFilled, ComputerFilled },
   setup () {
 
-    const { navigationInputVal, navigationHistoryList, navigationInputChange, gotoTargetFolder } = useTopSearchData ();
+    const { navigationInputVal, navigationHistoryList, navigationInputChange, gotoTargetFolder,
+      isHaveParentFolder } = useTopSearchData ();
+
+    const { goToSuperiorFolder } = useNavigationOperation ();
 
     return {
       navigationInputVal,
       navigationHistoryList,
+      isHaveParentFolder,
       navigationInputChange,
       gotoTargetFolder,
+      goToSuperiorFolder,
     };
 
   },
