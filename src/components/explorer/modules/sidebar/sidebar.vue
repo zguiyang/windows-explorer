@@ -4,7 +4,8 @@
 <!--    <n-tree block-line expand-on-click selectable default-expand-all :data="menuTree2"></n-tree>-->
   </div>
   <div class="sidebar-menu-wrapper">
-    <n-tree block-line expand-on-click selectable :data="menuTreeList"></n-tree>
+    <n-tree block-line expand-on-click selectable :data="menuTreeList" :render-switcher-icon="renderSwitcherIcon"
+     :node-props="treeNodeProps"></n-tree>
   </div>
 </div>
 </template>
@@ -12,16 +13,18 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-import { useSideBarData } from './hooks';
+import { useSideBarHooks } from './hooks';
 
 export default defineComponent ( {
   name: 'explorer-sidebar',
   setup () {
 
-    const { menuTreeList } = useSideBarData ();
+    const { menuTreeList, treeNodeProps, renderSwitcherIcon } = useSideBarHooks ();
 
     return {
       menuTreeList,
+      treeNodeProps,
+      renderSwitcherIcon,
     };
 
   },
