@@ -35,7 +35,10 @@
       </div>
       <div class="navigation-wrap">
         <div class="navigation-input">
-          <n-input style="width:600px" v-model:value="navigationInputVal">
+          <n-auto-complete style="width:600px" clearable v-model:value="navigationInputVal"
+          :input-props="{
+            autocomplete: 'disabled'
+         }" @update:value="navigationInputChange" :options="navigationHistoryList" @keydown.enter="gotoTargetFolder">
             <template #prefix>
               <n-icon :size="26" color="#ffd767">
                 <folder-filled></folder-filled>
@@ -44,7 +47,7 @@
 <!--                <computer-filled></computer-filled>-->
 <!--              </n-icon>-->
             </template>
-          </n-input>
+          </n-auto-complete>
         </div>
         <div class="navigation-input-action">
           <n-button quaternary>
@@ -87,10 +90,13 @@ export default defineComponent ( {
   components: { ArrowLeftOutlined, ArrowRightOutlined, ArrowUpOutlined, Refresh, FolderFilled, ComputerFilled },
   setup () {
 
-    const { navigationInputVal } = useTopSearchData ();
+    const { navigationInputVal, navigationHistoryList, navigationInputChange, gotoTargetFolder } = useTopSearchData ();
 
     return {
       navigationInputVal,
+      navigationHistoryList,
+      navigationInputChange,
+      gotoTargetFolder,
     };
 
   },

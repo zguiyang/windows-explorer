@@ -3,7 +3,8 @@ import { defineStore } from 'pinia';
 import { concat, findIndex } from 'lodash';
 
 import { initExplorerStorage, getExplorerFileList, getFolderMenuList, getCurrentFiles, getParentFile,
-  updateExplorerFileListStorage, updateFolderMenuListStorage, updateParentFileStorage, updateCurrentFilesStorage } from '@/lib/explorer-storage';
+  updateExplorerFileListStorage, updateFolderMenuListStorage, updateParentFileStorage, updateCurrentFilesStorage, getNavigationHistoryStorage,
+  updateNavigationHistoryStorage } from '@/lib/explorer-storage';
 
 import { createFolderMenuList } from '@/lib/explorer-utils';
 
@@ -17,6 +18,10 @@ export const useExplorerStore = defineStore ( 'explorer', () => {
   const folderMenuList = ref<FolderMenuItem[]> ( getFolderMenuList () );
 
   const currentFiles = ref<Array<ExplorerFileItem|FolderMenuItem>> ( getCurrentFiles () );
+
+  const navigationHistoryList = ref<FolderMenuItem[]> ( getNavigationHistoryStorage () );
+
+  const searchHistoryList = ref<Array<ExplorerFileItem|FolderMenuItem>> ( [] );
 
   const editFileId = ref<string|null> ( null );
 
@@ -117,6 +122,18 @@ export const useExplorerStore = defineStore ( 'explorer', () => {
 
   }
 
+  function updateNavigationHistoryList ( data: FolderMenuItem ) {
+
+    if ( !navigationHistoryList.value.find ( folder => folder.path === data.path ) ) {
+
+      navigationHistoryList.value.push ( data );
+
+      updateNavigationHistoryStorage ( navigationHistoryList.value );
+
+    }
+
+  }
+
   /**初始化结构数据**/
 
   function initExplorerData ( ) {
@@ -131,11 +148,14 @@ export const useExplorerStore = defineStore ( 'explorer', () => {
     parentFile,
     editFileId,
     currentFiles,
+    navigationHistoryList,
+    searchHistoryList,
     initExplorerData,
     updateExplorerFile,
     updateParentFile,
     updateEditFileId,
     updateOneFile,
+    updateNavigationHistoryList,
   };
 
 } );

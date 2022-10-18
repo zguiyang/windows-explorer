@@ -37,8 +37,9 @@ export type ExplorerFileItem = {
 export type FolderMenuItem = Omit<ExplorerFileItem, 'fileType'>;
 
 export type ExplorerStorage = {
-  explorerFileList: Array<ExplorerFileItem|FolderMenuItem>,
+  explorerFileList: Array<ExplorerFileItem | FolderMenuItem>,
   folderMenuList: FolderMenuItem[],
-  currentFiles: Array<ExplorerFileItem|FolderMenuItem>,
-  parentFile: FolderMenuItem|null,
+  currentFiles: Array<ExplorerFileItem | FolderMenuItem>,
+  parentFile: FolderMenuItem | null,
+  navigationHistoryList: FolderMenuItem[],
 }

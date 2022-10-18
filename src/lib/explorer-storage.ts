@@ -33,6 +33,7 @@ export function initExplorerStorage ( ) {
     explorerFileList: [ DEFAULT_ROOT_EXPLORER_DATA ],
     folderMenuList: [ DEFAULT_ROOT_EXPLORER_DATA ],
     currentFiles: [],
+    navigationHistoryList: [],
     parentFile: DEFAULT_ROOT_EXPLORER_DATA,
   };
 
@@ -108,6 +109,12 @@ export function getParentFile (): FolderMenuItem | null {
 
 }
 
+export function getNavigationHistoryStorage ():FolderMenuItem[] {
+
+  return getExplorerStorage ( 'navigationHistoryList' ) || [];
+
+}
+
 export function updateExplorerFileListStorage ( data: ExplorerFileItem[] ) {
 
   updateExplorerStorage ( 'explorerFileList', data );
@@ -129,5 +136,11 @@ export function updateCurrentFilesStorage ( data: Array<ExplorerFileItem|FolderM
 export function updateParentFileStorage ( data: FolderMenuItem ) {
 
   updateExplorerStorage ( 'parentFile', data );
+
+}
+
+export function updateNavigationHistoryStorage ( data:FolderMenuItem[] ) {
+
+  updateExplorerStorage ( 'navigationHistoryList', data );
 
 }

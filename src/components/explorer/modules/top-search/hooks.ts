@@ -1,3 +1,5 @@
+import { flatTreeArray } from 'quick-utils-js';
+
 import { useExplorerStore } from '@/store/explorer';
 
 export function useTopSearchData () {
@@ -6,32 +8,61 @@ export function useTopSearchData () {
 
   const parentFile = computed ( () => store.parentFile );
 
-  const navigationInputVal = ref<string| undefined> ( undefined );
+  const navigationHistoryList = ref<string[]> ( [] );
 
-  const updateNavigationInputVal = () => {
+  const navigationInputVal = ref<string | null> ( null );
 
-    if ( parentFile.value ) {
+  const formatNavigationInputVal = () => {
 
-      navigationInputVal.value = parentFile.value.path === '/' ? parentFile.value.name : parentFile.value.path;
-
-    }
+    navigationInputVal.value = parentFile.value && parentFile.value.path;
 
   };
 
   watch ( () => store.parentFile, () => {
 
-    updateNavigationInputVal ();
+    formatNavigationInputVal ();
 
   } );
 
+  const navigationInputChange = ( val: string | null ) => {
+
+    console.log ( val );
+
+    navigationHistoryList.value = store.navigationHistoryList.filter ( folder => folder.path.includes ( val ) ).map ( item => item.path );
+
+  };
+
+  const gotoTargetFolder = () => {
+
+    const folderList = flatTreeArray ( store.folderMenuList || [] );
+
+    const targetFolder = folderList.find ( folder => folder.path === navigationInputVal.value );
+
+    if ( !targetFolder ) {
+
+      console.error ( '不存在此目录' );
+
+    } else {
+
+      store.updateNavigationHistoryList ( targetFolder );
+
+      store.updateParentFile ( targetFolder );
+
+    }
+
+  };
+
   onMounted ( () => {
 
-    updateNavigationInputVal ();
+    formatNavigationInputVal ();
 
   } );
 
   return {
     navigationInputVal,
+    navigationHistoryList,
+    navigationInputChange,
+    gotoTargetFolder,
   };
 
 }
