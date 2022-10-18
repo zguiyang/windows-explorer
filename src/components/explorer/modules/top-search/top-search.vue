@@ -51,15 +51,15 @@
             </template>
           </n-input>
         </div>
-        <div class="navigation-input-action">
-          <n-button quaternary>
-            <template #icon>
-              <n-icon :size="18">
-                <refresh></refresh>
-              </n-icon>
-            </template>
-          </n-button>
-        </div>
+<!--        <div class="navigation-input-action">-->
+<!--          <n-button quaternary>-->
+<!--            <template #icon>-->
+<!--              <n-icon :size="18">-->
+<!--                <refresh></refresh>-->
+<!--              </n-icon>-->
+<!--            </template>-->
+<!--          </n-button>-->
+<!--        </div>-->
       </div>
       <div class="search-input-wrap">
         <n-input style="width: 380px;" placeholder="在此目录中进行搜索">
