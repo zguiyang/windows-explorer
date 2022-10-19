@@ -2,6 +2,8 @@ import { h } from 'vue';
 
 import { NSpace, NInput, DataTableColumn } from 'naive-ui';
 
+import { cloneDeep } from 'lodash';
+
 import { renderIcon, pathResolve } from '@/helper/utils';
 
 import { useExplorerStore } from '@/store/explorer';
@@ -14,7 +16,7 @@ export function useTableListData () {
 
   const store = useExplorerStore ();
 
-  const tableData = computed<ExplorerFileItem[]> ( () => store.currentFiles );
+  const tableData = computed ( () => store.currentFiles );
 
   const editFileId = computed ( () => store.editFileId );
 
@@ -30,17 +32,13 @@ export function useTableListData () {
 
     const updateFileItemName = () => {
 
-      console.log ( nameInputValue.value, row.name );
-
       if ( !nameInputValue.value ) {
 
         nameInputValue.value = row.name;
 
-        store.updateEditFileId ( null );
+      }
 
-        inputStatus.value = 'success';
-
-      } else if ( !tableData.value.find ( item => item.name === nameInputValue.value && item.fileType === row.fileType ) ) {
+      if ( !store.currentFiles.find ( ( item: ExplorerFileItem ) => item.id !== row.id && item.name === nameInputValue.value && item.fileType === row.fileType ) ) {
 
         inputStatus.value = 'success';
 
@@ -110,7 +108,7 @@ export function useTableListData () {
       default: () => [
 
         createFileModal ? renderIcon ( createFileModal.fileIcon, createFileModal.fileIconProps ) : renderIcon (),
-        editFileId.value === row.id ? renderEditNameInput ( row ) : row.name,
+        editFileId.value === row.id ? renderEditNameInput ( cloneDeep ( row ) ) : row.name,
       ] } );
 
   };
@@ -149,7 +147,7 @@ export function useTableListData () {
 
     return {
       style: 'cursor: pointer;',
-      onClick: () => {
+      onDblclick: () => {
 
         // 当前行正在编辑
 
