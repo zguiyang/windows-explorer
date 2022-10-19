@@ -8,7 +8,9 @@
     </div>
     <div class="explorer-main-wrapper">
       <div class="explorer-sidebar-wrapper">
-        <e-sidebar></e-sidebar>
+        <n-scrollbar style="max-height: 500px" x-scrollable>
+          <e-sidebar></e-sidebar>
+        </n-scrollbar>
       </div>
       <div class="explorer-container-wrapper">
         <e-container></e-container>

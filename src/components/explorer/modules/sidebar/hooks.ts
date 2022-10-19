@@ -32,6 +32,10 @@ export function useSideBarHooks () {
 
   } );
 
+  const defaultExpandedKeys = computed<string[]> ( () => [ store.parentFile?.id ] );
+
+  const defaultSelectedKeys = computed<string[]> ( () => [ store.parentFile?.id ] );
+
   const treeNodeProps = ( { option }: { option: TreeOption } ) => {
 
     return {
@@ -56,6 +60,8 @@ export function useSideBarHooks () {
 
   return {
     menuTreeList,
+    defaultExpandedKeys,
+    defaultSelectedKeys,
     treeNodeProps,
     renderSwitcherIcon: () => renderIcon ( ChevronForward, { } ),
   };

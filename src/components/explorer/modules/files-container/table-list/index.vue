@@ -1,6 +1,7 @@
 <template>
 <div class="files-container-table-list">
-<n-data-table :row-key="(row) => row.id" :columns="tableColumns" :data="tableData" :row-props="tableRowProps" virtual-scroll>
+<n-data-table :row-key="(row) => row.id" :columns="tableColumns" :data="tableData" :row-props="tableRowProps" virtual-scroll
+:max-height="500">
   <template #empty>
     <n-space vertical :size="12">
       <n-p style="text-align: center;">

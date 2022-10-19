@@ -30,6 +30,8 @@ export function useTableListData () {
 
     const updateFileItemName = () => {
 
+      console.log ( nameInputValue.value, row.name );
+
       if ( !nameInputValue.value ) {
 
         nameInputValue.value = row.name;
@@ -148,6 +150,14 @@ export function useTableListData () {
     return {
       style: 'cursor: pointer;',
       onClick: () => {
+
+        // 当前行正在编辑
+
+        if ( store.editFileId === row.id ) {
+
+          return false;
+
+        }
 
         if ( row.fileType !== ExplorerFileTypeEnum.FOLDER ) {
 

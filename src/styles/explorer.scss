@@ -93,7 +93,10 @@
 	padding: 10px 15px;
 	height: 100%;
 	width: 100%;
-	overflow: auto;
+}
+.explorer-left-sidebar-wrapper {
+	width: 100%;
+	white-space: nowrap;
 }
 .explorer-right-files-container-wrapper {
 	margin-top: 10px;

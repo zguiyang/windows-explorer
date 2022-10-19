@@ -4,8 +4,8 @@
 <!--    <n-tree block-line expand-on-click selectable default-expand-all :data="menuTree2"></n-tree>-->
   </div>
   <div class="sidebar-menu-wrapper">
-    <n-tree block-line expand-on-click selectable :data="menuTreeList" :render-switcher-icon="renderSwitcherIcon"
-     :node-props="treeNodeProps"></n-tree>
+    <n-tree block-line :data="menuTreeList" :render-switcher-icon="renderSwitcherIcon"
+     :node-props="treeNodeProps" :default-expanded-keys="[]" :default-selected-keys="[]"></n-tree>
   </div>
 </div>
 </template>
@@ -19,10 +19,13 @@ export default defineComponent ( {
   name: 'explorer-sidebar',
   setup () {
 
-    const { menuTreeList, treeNodeProps, renderSwitcherIcon } = useSideBarHooks ();
+    const { menuTreeList, defaultExpandedKeys, defaultSelectedKeys, treeNodeProps,
+      renderSwitcherIcon } = useSideBarHooks ();
 
     return {
       menuTreeList,
+      defaultExpandedKeys,
+      defaultSelectedKeys,
       treeNodeProps,
       renderSwitcherIcon,
     };
