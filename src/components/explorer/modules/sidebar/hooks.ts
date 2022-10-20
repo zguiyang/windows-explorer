@@ -39,7 +39,7 @@ export function useSideBarHooks () {
   const treeNodeProps = ( { option }: { option: TreeOption } ) => {
 
     return {
-      onclick () {
+      onDblclick () {
 
         const targetFolder = store.explorerFileList.find ( folder => folder.id === option.key );
 
