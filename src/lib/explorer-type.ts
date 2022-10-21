@@ -20,6 +20,8 @@ export type ExplorerFileModel = {
   fileIconProps?: IconProps,
 };
 
+// 文件项
+
 export type ExplorerFileItem = {
   id: string, // 文件或目录唯一标识
   name: string, // 文件名称
@@ -34,7 +36,11 @@ export type ExplorerFileItem = {
   createTime: string | null, // 文件的创建时间
 }
 
+// 文件目录菜单项
+
 export type FolderMenuItem = Omit<ExplorerFileItem, 'fileType'>;
+
+// 持久化文件管理器数据结构
 
 export type ExplorerStorage = {
   explorerFileList: Array<ExplorerFileItem | FolderMenuItem>,
@@ -43,3 +49,20 @@ export type ExplorerStorage = {
   parentFile: FolderMenuItem | null,
   navigationHistoryList: FolderMenuItem[],
 }
+
+// 文件类型所有操作方法枚举
+
+export enum ExplorerOperations {
+  MOVE= 'MOVE',
+  DELETE= 'DELETE',
+  RE_NAME= 'RE_NAME',
+  COPY= 'COPY',
+  IMAGE_PREVIEW= 'IMAGE_PREVIEW',
+  VIDEO_PLAY= 'VIDEO_PLAY',
+  AUDIO_PLAY='AUDIO_PLAY',
+  AUDIO_DOWNLOAD='AUDIO_DOWNLOAD'
+}
+
+// 文件操作角色类型定义
+
+export type ExplorerOperationRoles = Record<ExplorerFileTypeEnum, ExplorerOperations[]>;
