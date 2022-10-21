@@ -53,14 +53,14 @@ export type ExplorerStorage = {
 // 文件类型所有操作方法枚举
 
 export enum ExplorerOperations {
-  MOVE= 'MOVE',
-  DELETE= 'DELETE',
-  RE_NAME= 'RE_NAME',
-  COPY= 'COPY',
-  IMAGE_PREVIEW= 'IMAGE_PREVIEW',
-  VIDEO_PLAY= 'VIDEO_PLAY',
-  AUDIO_PLAY='AUDIO_PLAY',
-  AUDIO_DOWNLOAD='AUDIO_DOWNLOAD'
+  MOVE= 'move',
+  DELETE= 'delete',
+  RE_NAME= 'reName',
+  COPY= 'copy',
+  IMAGE_PREVIEW= 'imagePreview',
+  VIDEO_PLAY= 'videoPlay',
+  AUDIO_PLAY='AudioPlay',
+  AUDIO_DOWNLOAD='audioDown'
 }
 
 // 文件操作角色类型定义
