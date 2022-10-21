@@ -5,7 +5,7 @@
   </div>
   <div class="sidebar-menu-wrapper">
     <n-tree block-line :data="menuTreeList" :render-switcher-icon="renderSwitcherIcon"
-     :node-props="treeNodeProps" :default-expanded-keys="[]" :default-selected-keys="[]"></n-tree>
+     :node-props="treeNodeProps" :default-expanded-keys="defaultExpandedKeys" :default-selected-keys="defaultSelectedKeys"></n-tree>
   </div>
 </div>
 </template>

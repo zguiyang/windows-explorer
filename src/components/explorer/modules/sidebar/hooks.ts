@@ -32,7 +32,35 @@ export function useSideBarHooks () {
 
   } );
 
-  const defaultExpandedKeys = computed<string[]> ( () => [ store.parentFile?.id ] );
+  const getExpandedKeys = ( ): string[] => {
+
+    const fileAllList = store.explorerFileList.filter ( file => file.isFolder );
+
+    const keys: string[] = [];
+
+    function getKeys ( parentKey: string ) {
+
+      fileAllList.forEach ( item => {
+
+        if ( item.path === parentKey ) {
+
+          keys.push ( item.id );
+
+          getKeys ( item.parentPath );
+
+        }
+
+      } );
+
+    }
+
+    getKeys ( store.parentFile?.path );
+
+    return keys;
+
+  };
+
+  const defaultExpandedKeys = computed<string[]> ( () => getExpandedKeys () );
 
   const defaultSelectedKeys = computed<string[]> ( () => [ store.parentFile?.id ] );
 
