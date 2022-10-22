@@ -6,9 +6,9 @@ import { FileAddOutlined } from '@vicons/antd';
 
 import { ExplorerFileTypeEnum, ExplorerOperationEnums } from '@/lib/explorer-type';
 
-import { createFileOperation, checkOperationCode } from '@/lib/explorer-utils';
+import { createFileOperation } from '@/lib/explorer-utils';
 
-import { explorerFileReName, explorerFileDelete } from '@/lib/explorer-file-operation';
+import { checkOperationCode, explorerFileReName, explorerFileDelete } from '@/lib/explorer-file-operation';
 
 import { renderIcon } from '@/helper/utils';
 

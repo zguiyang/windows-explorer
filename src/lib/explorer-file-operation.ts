@@ -1,5 +1,39 @@
 import { useExplorerStore } from '@/store/explorer';
 
+import { ExplorerOperationEnums } from '@/lib/explorer-type';
+
+/**
+ * 校验权限code
+ * **/
+
+export function checkOperationCode ( operationKey: ExplorerOperationEnums ): boolean {
+
+  const store = useExplorerStore ();
+
+  if ( !store.operationFileId ) {
+
+    return false;
+
+  }
+
+  const selectedFile = store.explorerFileList.find ( file => file.id === store.operationFileId );
+
+  const operationCodes = store.explorerOperationRoles.get ( selectedFile.fileType );
+
+  if ( !operationCodes ) {
+
+    console.error ( '角色异常' );
+
+    return false;
+
+  }
+
+  return operationCodes.includes ( operationKey );
+
+
+}
+
+
 // 文件删除
 
 export function explorerFileDelete () {

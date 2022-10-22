@@ -50,6 +50,8 @@ export function useTableListData () {
 
         store.updateOneFile ( row );
 
+        store.updateOperationFileId ( null );
+
       } else {
 
         inputStatus.value = 'error';
@@ -186,7 +188,7 @@ export function useTableListData () {
 
         if ( row.fileType !== ExplorerFileTypeEnum.FOLDER ) {
 
-          console.log ( '暂不支持预览文件哦' );
+          console.error ( '暂不支持预览文件哦' );
 
         } else {
 

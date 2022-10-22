@@ -99,8 +99,6 @@ export const useExplorerStore = defineStore ( 'explorer', () => {
 
       updateFolderMenuList ();
 
-      updateOperationFileId ( null );
-
     }
 
 
