@@ -23,7 +23,7 @@ export const useExplorerStore = defineStore ( 'explorer', () => {
 
   const searchHistoryList = ref<Array<ExplorerFileItem|FolderMenuItem>> ( [] );
 
-  const editFileId = ref<string|null> ( null );
+  const operationFileId = ref<string|null> ( null );
 
   const parentFile = ref<FolderMenuItem|null> ( getParentFile () );
 
@@ -43,19 +43,19 @@ export const useExplorerStore = defineStore ( 'explorer', () => {
 
     updateFolderMenuList ();
 
-    updateEditFileId ( payload.id );
+    updateOperationFileId ( payload.id );
 
   }
 
-  function updateEditFileId ( id: string | null ) {
+  function updateOperationFileId ( id: string | null ) {
 
-    editFileId.value = id;
+    operationFileId.value = id;
 
   }
 
   function updateOneFile ( payload: ExplorerFileItem ) {
 
-    const replaceIndex = findIndex ( explorerFileList.value, file => file.id === editFileId.value );
+    const replaceIndex = findIndex ( explorerFileList.value, file => file.id === operationFileId.value );
 
     if ( replaceIndex > -1 ) {
 
@@ -67,7 +67,7 @@ export const useExplorerStore = defineStore ( 'explorer', () => {
 
       updateFolderMenuList ();
 
-      updateEditFileId ( null );
+      updateOperationFileId ( null );
 
     }
 
@@ -146,14 +146,14 @@ export const useExplorerStore = defineStore ( 'explorer', () => {
     explorerFileList,
     folderMenuList,
     parentFile,
-    editFileId,
+    operationFileId,
     currentFiles,
     navigationHistoryList,
     searchHistoryList,
     initExplorerData,
     updateExplorerFile,
     updateParentFile,
-    updateEditFileId,
+    updateOperationFileId,
     updateOneFile,
     updateNavigationHistoryList,
   };

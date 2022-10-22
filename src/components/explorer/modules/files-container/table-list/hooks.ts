@@ -18,7 +18,7 @@ export function useTableListData () {
 
   const tableData = computed ( () => store.currentFiles );
 
-  const editFileId = computed ( () => store.editFileId );
+  const operationFileId = computed ( () => store.operationFileId );
 
   const nameInputRef = ref<typeof NInput | null> ( null );
 
@@ -108,7 +108,7 @@ export function useTableListData () {
       default: () => [
 
         createFileModal ? renderIcon ( createFileModal.fileIcon, createFileModal.fileIconProps ) : renderIcon (),
-        editFileId.value === row.id ? renderEditNameInput ( cloneDeep ( row ) ) : row.name,
+        operationFileId.value === row.id ? renderEditNameInput ( cloneDeep ( row ) ) : row.name,
       ] } );
 
   };
@@ -151,7 +151,7 @@ export function useTableListData () {
 
         // 当前行正在编辑
 
-        if ( store.editFileId === row.id ) {
+        if ( operationFileId.value === row.id ) {
 
           return false;
 
