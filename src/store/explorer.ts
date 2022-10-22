@@ -8,6 +8,8 @@ import { initExplorerStorage, getExplorerFileList, getFolderMenuList, getCurrent
 
 import { createFolderMenuList } from '@/lib/explorer-utils';
 
+import { EXPLORER_OPERATION_ROLES_MAP } from '@/lib/constant';
+
 import { ExplorerFileItem, FolderMenuItem } from '@/lib/explorer-type';
 
 
@@ -16,6 +18,8 @@ export const useExplorerStore = defineStore ( 'explorer', () => {
   const explorerFileList = ref<Array<ExplorerFileItem|FolderMenuItem>> ( getExplorerFileList () );
 
   const folderMenuList = ref<FolderMenuItem[]> ( getFolderMenuList () );
+
+  const explorerOperationRoles = ref<typeof EXPLORER_OPERATION_ROLES_MAP> ( EXPLORER_OPERATION_ROLES_MAP );
 
   const currentFiles = ref<Array<ExplorerFileItem|FolderMenuItem>> ( getCurrentFiles () );
 
@@ -178,6 +182,7 @@ export const useExplorerStore = defineStore ( 'explorer', () => {
     currentFiles,
     navigationHistoryList,
     searchHistoryList,
+    explorerOperationRoles,
     initExplorerData,
     updateExplorerFile,
     deleteExplorerFile,

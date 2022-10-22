@@ -1,6 +1,6 @@
 import { h } from 'vue';
 
-import { NSpace, NInput, DataTableColumn } from 'naive-ui';
+import { NSpace, NInput, NCheckbox, DataTableColumn } from 'naive-ui';
 
 import { cloneDeep } from 'lodash';
 
@@ -17,6 +17,8 @@ export function useTableListData () {
   const store = useExplorerStore ();
 
   const tableData = computed ( () => store.currentFiles );
+
+  const tableCheckedRowKeys = ref<string[]> ( store.operationFileId ? [ store.operationFileId ] : [] );
 
   const nameInputRef = ref<typeof NInput | null> ( null );
 
@@ -113,13 +115,27 @@ export function useTableListData () {
 
   };
 
+  const renderSelectColumn = ( row: ExplorerFileItem ) => {
+
+    return h ( NCheckbox, {
+      checked: row.id === store.operationFileId,
+      onUpdateChecked: ( checked ) => {
+
+        checked ? store.updateOperationFileId ( row.id ) : store.updateOperationFileId ( null );
+
+      },
+    } );
+
+  };
+
   const tableColumns: DataTableColumn<ExplorerFileItem>[] = [
 
-    // {
-    //   type: 'selection',
-    //   width: 40,
-    // },
-
+    {
+      title: '选中',
+      key: 'selected',
+      width: 80,
+      render: renderSelectColumn,
+    },
     {
       title: '名称',
       key: 'name',
@@ -142,6 +158,17 @@ export function useTableListData () {
       width: 120,
     },
   ];
+
+
+  // 表格行选中监听
+
+  const tableCheckedRowKeysChange = ( keys: Array<string> ) => {
+
+    store.updateOperationFileId ( keys[ 0 ] );
+
+    tableCheckedRowKeys.value = keys;
+
+  };
 
   const tableRowProps = ( row: ExplorerFileItem ) => {
 
@@ -174,8 +201,10 @@ export function useTableListData () {
 
   return {
     tableData,
+    tableCheckedRowKeys,
     tableRowProps,
     tableColumns,
+    tableCheckedRowKeysChange,
   };
 
 }

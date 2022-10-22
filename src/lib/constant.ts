@@ -1,6 +1,6 @@
-import { FolderFilled, FileTextTwotone } from '@vicons/antd';
+import { FileTextTwotone, FolderFilled } from '@vicons/antd';
 
-import { ExplorerFileTypeEnum, ExplorerFileModel } from '@/lib/explorer-type';
+import { ExplorerFileModel, ExplorerFileTypeEnum, ExplorerOperationEnums } from '@/lib/explorer-type';
 
 export const LOCAL_STORAGE_EXPLORER_NAME = 'explorer';
 
@@ -36,3 +36,23 @@ export const EXPLORER_FILE_MODEL_MAP:Partial<Record<ExplorerFileTypeEnum, Explor
     },
   },
 };
+
+export const EXPLORER_OPERATION_PERMISSION_CODES = [ ExplorerOperationEnums.RE_NAME, ExplorerOperationEnums.DELETE, ExplorerOperationEnums.IMAGE_PREVIEW ];
+
+// 所有文件可执行操作code
+
+const EXPLORER_PUBLIC_OPERATIONS = [ ExplorerOperationEnums.RE_NAME, ExplorerOperationEnums.DELETE ];
+
+// 图片类型文件可执行操作
+
+const EXPLORER_IMAGE_OPERATIONS = [ ...EXPLORER_PUBLIC_OPERATIONS, ExplorerOperationEnums.IMAGE_PREVIEW ];
+
+// 文件类型操作关系映射
+
+export const EXPLORER_OPERATION_ROLES_MAP = new Map ( [
+  [ ExplorerFileTypeEnum.FOLDER, [ ...EXPLORER_PUBLIC_OPERATIONS ] ],
+  [ ExplorerFileTypeEnum.JPG, [ ...EXPLORER_IMAGE_OPERATIONS ] ],
+  [ ExplorerFileTypeEnum.PNG, [ ...EXPLORER_IMAGE_OPERATIONS ] ],
+  [ ExplorerFileTypeEnum.TXT, [ ...EXPLORER_PUBLIC_OPERATIONS ] ],
+  [ ExplorerFileTypeEnum.MP4, [ ...EXPLORER_PUBLIC_OPERATIONS, ExplorerOperationEnums.VIDEO_PLAY ] ],
+] );

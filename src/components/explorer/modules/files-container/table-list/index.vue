@@ -1,7 +1,7 @@
 <template>
 <div class="files-container-table-list">
 <n-data-table :row-key="(row) => row.id" :columns="tableColumns" :data="tableData" :row-props="tableRowProps" virtual-scroll
-:max-height="500">
+:max-height="500"  v-model:checked-row-keys="tableCheckedRowKeys" @update:checked-row-keys="tableCheckedRowKeysChange">
   <template #empty>
     <n-space vertical :size="12">
       <n-p style="text-align: center;">
@@ -28,13 +28,15 @@ export default defineComponent ( {
   components: { Archive16Regular },
   setup () {
 
-    const { tableColumns, tableData, tableRowProps } = useTableListData ();
+    const { tableColumns, tableData, tableCheckedRowKeys, tableRowProps, tableCheckedRowKeysChange } = useTableListData ();
 
 
     return {
       tableData,
       tableColumns,
+      tableCheckedRowKeys,
       tableRowProps,
+      tableCheckedRowKeysChange,
     };
 
   },

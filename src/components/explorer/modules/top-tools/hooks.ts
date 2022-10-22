@@ -4,9 +4,11 @@ import { FolderOutline } from '@vicons/ionicons5';
 
 import { FileAddOutlined } from '@vicons/antd';
 
-import { ExplorerFileTypeEnum } from '@/lib/explorer-type';
+import { ExplorerFileTypeEnum, ExplorerOperationEnums } from '@/lib/explorer-type';
 
-import { createFileOperation } from '@/lib/explorer-utils';
+import { createFileOperation, checkOperationCode } from '@/lib/explorer-utils';
+
+import { explorerFileReName, explorerFileDelete } from '@/lib/explorer-file-operation';
 
 import { renderIcon } from '@/helper/utils';
 
@@ -21,6 +23,8 @@ export function useTopToolsHooks () {
     },
   ];
 
+  // 新建下拉菜单选择操作监听
+
   const handleCreateMenuSelect = ( key: ExplorerFileTypeEnum ) => {
 
     createFileOperation ( key );
@@ -30,6 +34,46 @@ export function useTopToolsHooks () {
   return {
     createMenus,
     handleCreateMenuSelect,
+  };
+
+}
+
+export function useButtonOperationHooks () {
+
+
+  const reNameButtonDisabled = computed<boolean> ( () => !checkOperationCode ( ExplorerOperationEnums.RE_NAME ) );
+
+  const deleteButtonDisabled = computed<boolean> ( () => !checkOperationCode ( ExplorerOperationEnums.DELETE ) );
+
+  const reNameOperation = () => {
+
+    if ( reNameButtonDisabled.value ) {
+
+      return false;
+
+    }
+
+    explorerFileReName ();
+
+  };
+
+  const deleteFileOperation = () => {
+
+    if ( deleteButtonDisabled.value ) {
+
+      return false;
+
+    }
+
+    explorerFileDelete ();
+
+  };
+
+  return {
+    reNameButtonDisabled,
+    deleteButtonDisabled,
+    reNameOperation,
+    deleteFileOperation,
   };
 
 }

@@ -2,7 +2,7 @@ import { dateFormat, generateID } from 'quick-utils-js';
 
 import { useExplorerStore } from '@/store/explorer';
 
-import { ExplorerFileTypeEnum, ExplorerFileItem, FolderMenuItem } from '@/lib/explorer-type';
+import { ExplorerFileTypeEnum, ExplorerFileItem, FolderMenuItem, ExplorerOperationEnums } from '@/lib/explorer-type';
 
 import { EXPLORER_FILE_MODEL_MAP, NEW_FOLDER_DEFAULT_NAME, NEW_TXT_DEFAULT_NAME } from '@/lib/constant';
 
@@ -166,5 +166,36 @@ export function createFolderMenuList ( files: ExplorerFileItem[] ):FolderMenuIte
   }
 
   return res;
+
+}
+
+/**
+ * 校验权限code
+ * **/
+
+export function checkOperationCode ( operationKey: ExplorerOperationEnums ): boolean {
+
+  const store = useExplorerStore ();
+
+  if ( !store.operationFileId ) {
+
+    return false;
+
+  }
+
+  const selectedFile = store.explorerFileList.find ( file => file.id === store.operationFileId );
+
+  const operationCodes = store.explorerOperationRoles.get ( selectedFile.fileType );
+
+  if ( !operationCodes ) {
+
+    console.error ( '角色异常' );
+
+    return false;
+
+  }
+
+  return operationCodes.includes ( operationKey );
+
 
 }

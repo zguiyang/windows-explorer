@@ -58,7 +58,7 @@
           </n-popover>
           <n-popover trigger="hover">
             <template #trigger>
-              <span class="operation-button">
+              <span class="operation-button" :class="{'disabled': reNameButtonDisabled }" @click.stop="reNameOperation">
                 <n-icon :size="20" color="#0d7dd1">
                   <rename24-regular></rename24-regular>
                 </n-icon>
@@ -68,7 +68,7 @@
           </n-popover>
           <n-popover trigger="hover">
             <template #trigger>
-               <span class="operation-button">
+               <span class="operation-button" :class="{'disabled': deleteButtonDisabled }" @click.stop="deleteFileOperation">
                   <n-icon :size="20">
                     <delete-outlined></delete-outlined>
                   </n-icon>
@@ -108,7 +108,7 @@ import { ContentCutOutlined, ContentPasteFilled } from '@vicons/material';
 
 import { Rename24Regular, ArrowSort28Regular } from '@vicons/fluent';
 
-import { useTopToolsHooks } from './hooks';
+import { useTopToolsHooks, useButtonOperationHooks } from './hooks';
 
 export default defineComponent ( {
   name: 'explorer-top-tools',
@@ -120,8 +120,15 @@ export default defineComponent ( {
 
     const { createMenus, handleCreateMenuSelect } = useTopToolsHooks ();
 
+    const { reNameButtonDisabled, deleteButtonDisabled, reNameOperation,
+      deleteFileOperation } = useButtonOperationHooks ();
+
     return {
       createMenus,
+      reNameButtonDisabled,
+      deleteButtonDisabled,
+      reNameOperation,
+      deleteFileOperation,
       handleCreateMenuSelect,
     };
 

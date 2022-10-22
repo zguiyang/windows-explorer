@@ -1,7 +1,5 @@
 import { useExplorerStore } from '@/store/explorer';
 
-import { ExplorerOperations } from './explorer-type';
-
 // 文件删除
 
 export function explorerFileDelete () {
@@ -22,11 +20,11 @@ export function explorerFileDelete () {
 
 // 文件重命名
 
-export function explorerFileReName ( id: string ) {
+export function explorerFileReName () {
 
   const store = useExplorerStore ();
 
-  const targetFile = store.explorerFileList.find ( file => file.id === id );
+  const targetFile = store.explorerFileList.find ( file => file.id === store.operationFileId );
 
   if ( targetFile ) {
 
@@ -43,10 +41,3 @@ export function explorerFileReName ( id: string ) {
   }
 
 }
-
-const explorerOperationMap = new Map ( [
-  [ ExplorerOperations.RE_NAME, explorerFileReName ],
-  [ ExplorerOperations.DELETE, explorerFileDelete ],
-] );
-
-export default explorerOperationMap;

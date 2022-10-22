@@ -28,7 +28,7 @@ export type ExplorerFileItem = {
   parentPath: string | null, // 父级目录
   path:string, // 文件本身全路径
   isEdit?: boolean, // 是否处于编辑中
-  fileType?: ExplorerFileTypeEnum, //文件本身类型
+  fileType: ExplorerFileTypeEnum | null, //文件本身类型
   fileTypeText?: string; // 文件类型名称
   isFolder: boolean, // 是否是文件夹
   fileSize: number | string, // 文件大小， 字节
@@ -39,7 +39,7 @@ export type ExplorerFileItem = {
 
 // 文件目录菜单项
 
-export type FolderMenuItem = Omit<ExplorerFileItem, 'fileType'>;
+export type FolderMenuItem = ExplorerFileItem;
 
 // 持久化文件管理器数据结构
 
@@ -54,7 +54,7 @@ export type ExplorerStorage = {
 
 // 文件类型所有操作方法枚举
 
-export enum ExplorerOperations {
+export enum ExplorerOperationEnums {
   MOVE= 'move',
   DELETE= 'delete',
   RE_NAME= 'reName',
@@ -62,9 +62,5 @@ export enum ExplorerOperations {
   IMAGE_PREVIEW= 'imagePreview',
   VIDEO_PLAY= 'videoPlay',
   AUDIO_PLAY='AudioPlay',
-  AUDIO_DOWNLOAD='audioDown'
+  AUDIO_DOWNLOAD='audioDownload'
 }
-
-// 文件操作角色类型定义
-
-export type ExplorerOperationRoles = Record<ExplorerFileTypeEnum, ExplorerOperations[]>;

@@ -21,7 +21,7 @@
 			}
 		}
 		&.disabled {
-			@apply cursor-not-allowed disabled:opacity-75;
+			@apply cursor-not-allowed accent-gray-600 opacity-50;
 		}
 	}
 	.dropdown-menu-button {

@@ -16,6 +16,7 @@ export const DEFAULT_ROOT_EXPLORER_DATA:ExplorerFileItem = {
   parentPath: null,
   path: '/',
   fileSize: 0,
+  fileType: null,
   isFolder: true,
   createTime: dateFormat ( new Date ().getTime () ),
   updateTime: null,
