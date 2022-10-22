@@ -33,6 +33,7 @@ export function initExplorerStorage ( ) {
     explorerFileList: [ DEFAULT_ROOT_EXPLORER_DATA ],
     folderMenuList: [ DEFAULT_ROOT_EXPLORER_DATA ],
     currentFiles: [],
+    operationFileId: null,
     navigationHistoryList: [],
     parentFile: DEFAULT_ROOT_EXPLORER_DATA,
   };
@@ -115,6 +116,12 @@ export function getNavigationHistoryStorage ():FolderMenuItem[] {
 
 }
 
+export function getOperationFileId (): string | null {
+
+  return getExplorerStorage ( 'operationFileId' ) || null;
+
+}
+
 export function updateExplorerFileListStorage ( data: ExplorerFileItem[] ) {
 
   updateExplorerStorage ( 'explorerFileList', data );
@@ -142,5 +149,11 @@ export function updateParentFileStorage ( data: FolderMenuItem ) {
 export function updateNavigationHistoryStorage ( data:FolderMenuItem[] ) {
 
   updateExplorerStorage ( 'navigationHistoryList', data );
+
+}
+
+export function updateOperationFileIdStorage ( data: string | null ) {
+
+  updateExplorerStorage ( 'operationFileId', data );
 
 }

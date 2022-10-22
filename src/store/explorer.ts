@@ -4,7 +4,7 @@ import { concat, findIndex } from 'lodash';
 
 import { initExplorerStorage, getExplorerFileList, getFolderMenuList, getCurrentFiles, getParentFile,
   updateExplorerFileListStorage, updateFolderMenuListStorage, updateParentFileStorage, updateCurrentFilesStorage, getNavigationHistoryStorage,
-  updateNavigationHistoryStorage } from '@/lib/explorer-storage';
+  updateNavigationHistoryStorage, getOperationFileId, updateOperationFileIdStorage } from '@/lib/explorer-storage';
 
 import { createFolderMenuList } from '@/lib/explorer-utils';
 
@@ -23,7 +23,7 @@ export const useExplorerStore = defineStore ( 'explorer', () => {
 
   const searchHistoryList = ref<Array<ExplorerFileItem|FolderMenuItem>> ( [] );
 
-  const operationFileId = ref<string|null> ( null );
+  const operationFileId = ref<string|null> ( getOperationFileId () );
 
   const parentFile = ref<FolderMenuItem|null> ( getParentFile () );
 
@@ -47,9 +47,37 @@ export const useExplorerStore = defineStore ( 'explorer', () => {
 
   }
 
+  function deleteExplorerFile ( ) {
+
+    const targetFile = explorerFileList.value.find ( file => file.id === operationFileId.value );
+
+    if ( targetFile.isFolder ) {
+
+      // 删除该目录下所有文件
+
+      explorerFileList.value = explorerFileList.value.filter ( file => file.parentPath !== targetFile.path );
+
+    }
+
+    explorerFileList.value = explorerFileList.value.filter ( file => file.id !== targetFile.id );
+
+
+    updateExplorerFileListStorage ( explorerFileList.value );
+
+    updateCurrentFileList ();
+
+    updateFolderMenuList ();
+
+    updateOperationFileId ( null );
+
+
+  }
+
   function updateOperationFileId ( id: string | null ) {
 
     operationFileId.value = id;
+
+    updateOperationFileIdStorage ( id );
 
   }
 
@@ -152,6 +180,7 @@ export const useExplorerStore = defineStore ( 'explorer', () => {
     searchHistoryList,
     initExplorerData,
     updateExplorerFile,
+    deleteExplorerFile,
     updateParentFile,
     updateOperationFileId,
     updateOneFile,

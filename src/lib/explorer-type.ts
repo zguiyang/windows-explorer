@@ -27,6 +27,7 @@ export type ExplorerFileItem = {
   name: string, // 文件名称
   parentPath: string | null, // 父级目录
   path:string, // 文件本身全路径
+  isEdit?: boolean, // 是否处于编辑中
   fileType?: ExplorerFileTypeEnum, //文件本身类型
   fileTypeText?: string; // 文件类型名称
   isFolder: boolean, // 是否是文件夹
@@ -47,6 +48,7 @@ export type ExplorerStorage = {
   folderMenuList: FolderMenuItem[],
   currentFiles: Array<ExplorerFileItem | FolderMenuItem>,
   parentFile: FolderMenuItem | null,
+  operationFileId: string | null,
   navigationHistoryList: FolderMenuItem[],
 }
 

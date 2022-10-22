@@ -48,6 +48,7 @@ export function createFileOperation ( key: ExplorerFileTypeEnum ) {
     parentPath: parentFile.value.path,
     path: '',
     isFolder: true,
+    isEdit: true,
     fileType: null,
     fileTypeText: createFileModel.fileTypeText,
     fileSize: 0,
