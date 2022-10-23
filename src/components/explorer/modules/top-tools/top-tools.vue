@@ -118,7 +118,7 @@ import { AddCircleOutline } from '@vicons/ionicons5';
 
 import { AudiotrackOutlined, SimCardDownloadOutlined } from '@vicons/material';
 
-import { Rename24Regular, ArrowSort28Regular } from '@vicons/fluent';
+import { Rename24Regular } from '@vicons/fluent';
 
 import { useTopToolsHooks, useButtonOperationHooks } from './hooks';
 
@@ -126,7 +126,7 @@ export default defineComponent ( {
   name: 'explorer-top-tools',
   components: {
     FolderFilled, DownOutlined, AddCircleOutline, Rename24Regular, DeleteOutlined,
-    ArrowSort28Regular, PlayCircleOutlined, FileImageOutlined, AudiotrackOutlined, SimCardDownloadOutlined,
+    PlayCircleOutlined, FileImageOutlined, AudiotrackOutlined, SimCardDownloadOutlined,
   },
   setup () {
 
