@@ -26,36 +26,36 @@
           </div>
         </n-dropdown>
         <div class="operation-buttons">
-          <n-popover trigger="hover">
-            <template #trigger>
-              <span class="operation-button">
-                 <n-icon :size="18" color="#0d7dd1">
-                  <content-cut-outlined></content-cut-outlined>
-                 </n-icon>
-              </span>
-            </template>
-            <span>剪切</span>
-          </n-popover>
-          <n-popover trigger="hover">
-            <template #trigger>
-              <span class="operation-button">
-                <n-icon :size="18" color="#0d7dd1">
-                 <copy-outline></copy-outline>
-                </n-icon>
-              </span>
-            </template>
-            <span>拷贝</span>
-          </n-popover>
-          <n-popover trigger="hover">
-            <template #trigger>
-              <span class="operation-button">
-                <n-icon :size="18" color="#0d7dd1">
-                  <content-paste-filled></content-paste-filled>
-                </n-icon>
-              </span>
-            </template>
-            <span>粘贴</span>
-          </n-popover>
+<!--          <n-popover trigger="hover">-->
+<!--            <template #trigger>-->
+<!--              <span class="operation-button">-->
+<!--                 <n-icon :size="18" color="#0d7dd1">-->
+<!--                  <content-cut-outlined></content-cut-outlined>-->
+<!--                 </n-icon>-->
+<!--              </span>-->
+<!--            </template>-->
+<!--            <span>剪切</span>-->
+<!--          </n-popover>-->
+<!--          <n-popover trigger="hover">-->
+<!--            <template #trigger>-->
+<!--              <span class="operation-button">-->
+<!--                <n-icon :size="18" color="#0d7dd1">-->
+<!--                 <copy-outline></copy-outline>-->
+<!--                </n-icon>-->
+<!--              </span>-->
+<!--            </template>-->
+<!--            <span>拷贝</span>-->
+<!--          </n-popover>-->
+<!--          <n-popover trigger="hover">-->
+<!--            <template #trigger>-->
+<!--              <span class="operation-button">-->
+<!--                <n-icon :size="18" color="#0d7dd1">-->
+<!--                  <content-paste-filled></content-paste-filled>-->
+<!--                </n-icon>-->
+<!--              </span>-->
+<!--            </template>-->
+<!--            <span>粘贴</span>-->
+<!--          </n-popover>-->
           <n-popover trigger="hover">
             <template #trigger>
               <span class="operation-button" :class="{'disabled': reNameButtonDisabled }" @click.stop="reNameOperation">
@@ -77,21 +77,21 @@
             <span>删除</span>
           </n-popover>
         </div>
-        <n-dropdown placement="bottom-start"
-          trigger="click"
-          size="medium"
-          :options="createMenus"
-          @select="handleCreateMenuSelect">
-          <div class="dropdown-menu-button">
-            <n-icon :size="20">
-              <arrow-sort28-regular color="#0d7dd1"></arrow-sort28-regular>
-            </n-icon>
-            <span class="button-name">排序</span>
-            <n-icon :size="16" :style="{marginLeft: '4px'}">
-              <down-outlined></down-outlined>
-            </n-icon>
-          </div>
-        </n-dropdown>
+<!--        <n-dropdown placement="bottom-start"-->
+<!--          trigger="click"-->
+<!--          size="medium"-->
+<!--          :options="createMenus"-->
+<!--          @select="handleCreateMenuSelect">-->
+<!--          <div class="dropdown-menu-button">-->
+<!--            <n-icon :size="20">-->
+<!--              <arrow-sort28-regular color="#0d7dd1"></arrow-sort28-regular>-->
+<!--            </n-icon>-->
+<!--            <span class="button-name">排序</span>-->
+<!--            <n-icon :size="16" :style="{marginLeft: '4px'}">-->
+<!--              <down-outlined></down-outlined>-->
+<!--            </n-icon>-->
+<!--          </div>-->
+<!--        </n-dropdown>-->
       </n-space>
     </div>
   </div>
