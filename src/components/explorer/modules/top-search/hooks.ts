@@ -38,17 +38,29 @@ export function useTopSearchData () {
 
   const gotoTargetFolder = () => {
 
-    const targetFolder = store.explorerFileList.find ( folder => folder.path === navigationInputVal.value && folder.isFolder );
+    const targetFile = store.explorerFileList.find ( folder => folder.path === navigationInputVal.value );
 
-    if ( !targetFolder ) {
+    if ( !targetFile ) {
 
-      window.$message.error ( '没有这个目录' );
+      window.$message.error ( '目标文件或目录不存在' );
 
     } else {
 
-      store.updateNavigationHistoryList ( targetFolder );
+      if ( targetFile.isFolder ) {
 
-      store.updateParentFile ( targetFolder );
+        store.updateNavigationHistoryList ( targetFile );
+
+        store.updateParentFile ( targetFile );
+
+      } else {
+
+        const parentFileFolder = store.explorerFileList.find ( folder => folder.path === targetFile.parentPath && folder.isFolder );
+
+        store.updateNavigationHistoryList ( parentFileFolder );
+
+        store.updateParentFile ( parentFileFolder );
+
+      }
 
     }
 
