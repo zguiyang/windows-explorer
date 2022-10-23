@@ -2,6 +2,8 @@ import { defineConfig } from 'vite';
 
 import vue from '@vitejs/plugin-vue';
 
+import * as path from 'path';
+
 import AutoImport from 'unplugin-auto-import/vite';
 
 import Components from 'unplugin-vue-components/vite';
@@ -16,21 +18,13 @@ export default defineConfig ( {
   },
   resolve: {
     alias: {
-      '@': 'src/',
+      '@': path.resolve ( __dirname, 'src' ),
     },
   },
   plugins: [ vue (), AutoImport ( {
     dts: true,
     imports: [
       'vue',
-      {
-        'naive-ui': [
-          'useDialog',
-          'useMessage',
-          'useNotification',
-          'useLoadingBar',
-        ],
-      },
     ],
   } ),
   Components ( {
