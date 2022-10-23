@@ -20,6 +20,9 @@
 </template>
 
 <script lang="ts">
+import { useMessage } from 'naive-ui';
+
+
 import { ETopTools } from './modules/top-tools';
 
 import { ETopSearch } from './modules/top-search';
@@ -33,6 +36,11 @@ import { defineComponent } from 'vue';
 export default defineComponent ( {
   name: 'Explorer',
   components: { ETopTools, ETopSearch, ESidebar, EContainer },
+  setup () {
+
+    window.$message = useMessage ();
+
+  },
 } );
 </script>
 

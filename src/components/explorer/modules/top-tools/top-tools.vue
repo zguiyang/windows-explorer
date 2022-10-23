@@ -28,7 +28,7 @@
         <div class="operation-buttons">
           <n-popover trigger="hover">
             <template #trigger>
-              <n-button class="operation-button">
+              <n-button class="operation-button" :disabled="imgButtonPreviewDisabled" @click.stop="handleImagePreview">
                  <n-icon :size="20" color="#0d7dd1">
                   <file-image-outlined></file-image-outlined>
                  </n-icon>
@@ -38,7 +38,7 @@
           </n-popover>
           <n-popover trigger="hover">
             <template #trigger>
-              <n-button class="operation-button">
+              <n-button class="operation-button" :disabled="videoButtonPlayDisabled" @click.stop="handleVideoPlay">
                 <n-icon :size="20" color="#0d7dd1">
                  <play-circle-outlined></play-circle-outlined>
                 </n-icon>
@@ -48,7 +48,7 @@
           </n-popover>
           <n-popover trigger="hover">
             <template #trigger>
-              <n-button class="operation-button">
+              <n-button class="operation-button" :disabled="audioButtonPlayDisabled" @click.stop="handleAudioPlay">
                 <n-icon :size="20" color="#0d7dd1">
                   <audiotrack-outlined></audiotrack-outlined>
                 </n-icon>
@@ -58,7 +58,7 @@
           </n-popover>
           <n-popover trigger="hover">
             <template #trigger>
-              <n-button class="operation-button">
+              <n-button class="operation-button" :disabled="audioButtonDownloadDisabled"  @click.stop="handleAudioDownload">
                 <n-icon :size="20" color="#0d7dd1">
                   <sim-card-download-outlined></sim-card-download-outlined>
                 </n-icon>
@@ -132,13 +132,22 @@ export default defineComponent ( {
 
     const { createMenus, handleCreateMenuSelect } = useTopToolsHooks ();
 
-    const { reNameButtonDisabled, deleteButtonDisabled, reNameOperation,
-      deleteFileOperation } = useButtonOperationHooks ();
+    const { imgButtonPreviewDisabled, videoButtonPlayDisabled, audioButtonPlayDisabled, audioButtonDownloadDisabled,
+      reNameButtonDisabled, deleteButtonDisabled, handleImagePreview, handleVideoPlay, handleAudioPlay,
+      handleAudioDownload, reNameOperation, deleteFileOperation } = useButtonOperationHooks ();
 
     return {
       createMenus,
+      imgButtonPreviewDisabled,
+      videoButtonPlayDisabled,
+      audioButtonPlayDisabled,
+      audioButtonDownloadDisabled,
       reNameButtonDisabled,
       deleteButtonDisabled,
+      handleImagePreview,
+      handleVideoPlay,
+      handleAudioPlay,
+      handleAudioDownload,
       reNameOperation,
       deleteFileOperation,
       handleCreateMenuSelect,

@@ -54,6 +54,13 @@ export function useTopToolsHooks () {
 
 export function useButtonOperationHooks () {
 
+  const imgButtonPreviewDisabled = computed<boolean> ( () => !checkOperationCode ( ExplorerOperationEnums.IMAGE_PREVIEW ) );
+
+  const videoButtonPlayDisabled = computed<boolean> ( () => !checkOperationCode ( ExplorerOperationEnums.VIDEO_PLAY ) );
+
+  const audioButtonPlayDisabled = computed<boolean> ( () => !checkOperationCode ( ExplorerOperationEnums.AUDIO_PLAY ) );
+
+  const audioButtonDownloadDisabled = computed<boolean> ( () => !checkOperationCode ( ExplorerOperationEnums.AUDIO_DOWNLOAD ) );
 
   const reNameButtonDisabled = computed<boolean> ( () => !checkOperationCode ( ExplorerOperationEnums.RE_NAME ) );
 
@@ -71,9 +78,41 @@ export function useButtonOperationHooks () {
 
   };
 
+  const handleImagePreview = () => {
+
+    window.$message.success ( '执行图片预览操作成功' );
+
+  };
+
+  const handleVideoPlay = () => {
+
+    window.$message.success ( '执行视频播放操作成功' );
+
+  };
+
+  const handleAudioPlay = () => {
+
+    window.$message.success ( '执行音频播放操作成功' );
+
+  };
+
+  const handleAudioDownload = () => {
+
+    window.$message.success ( '执行音频下载操作成功' );
+
+  };
+
   return {
+    imgButtonPreviewDisabled,
+    videoButtonPlayDisabled,
+    audioButtonPlayDisabled,
+    audioButtonDownloadDisabled,
     reNameButtonDisabled,
     deleteButtonDisabled,
+    handleImagePreview,
+    handleVideoPlay,
+    handleAudioPlay,
+    handleAudioDownload,
     reNameOperation,
     deleteFileOperation,
   };
