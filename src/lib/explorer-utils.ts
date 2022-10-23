@@ -2,9 +2,9 @@ import { dateFormat, generateID } from 'quick-utils-js';
 
 import { useExplorerStore } from '@/store/explorer';
 
-import { ExplorerFileTypeEnum, ExplorerFileItem, FolderMenuItem } from '@/lib/explorer-type';
+import { ExplorerFileItem, ExplorerFileTypeEnum, FolderMenuItem } from '@/lib/explorer-type';
 
-import { EXPLORER_FILE_MODEL_MAP, NEW_FOLDER_DEFAULT_NAME, NEW_TXT_DEFAULT_NAME } from '@/lib/constant';
+import { EXPLORER_FILE_MODEL_MAP, NEW_UNKNOWN_DEFAULT_NAME } from '@/lib/constant';
 
 import { pathResolve } from '@/helper/utils';
 
@@ -42,25 +42,14 @@ export function createFileOperation ( key: ExplorerFileTypeEnum ) {
 
   }
 
-  const newFileItem: FolderMenuItem | ExplorerFileItem = {
-    id: generateID (),
-    name: '',
-    parentPath: parentFile.value.path,
-    path: '',
-    isFolder: true,
-    isEdit: true,
-    fileType: null,
-    fileTypeText: createFileModel.fileTypeText,
-    fileSize: 0,
-    createTime: dateFormat ( new Date ().getTime () ),
-    updateTime: dateFormat ( new Date ().getTime () ),
-  };
 
   /**
    * 创建文件名称
    * **/
 
-  const createFileName = ( str: string ): string => {
+  const createFileName = ( name?: string ): string => {
+
+    const str = name || NEW_UNKNOWN_DEFAULT_NAME;
 
     // @ts-ignore
 
@@ -80,41 +69,47 @@ export function createFileOperation ( key: ExplorerFileTypeEnum ) {
 
   };
 
-  /*各种文件的具体执行的逻辑*/
+  /**
+   * 创建新增的文件项
+   * **/
 
-  switch ( key ) {
+  const createNewFileItem = () => {
 
-    case ExplorerFileTypeEnum.FOLDER:
+    const fileItem: FolderMenuItem | ExplorerFileItem = {
+      id: generateID (),
+      name: '',
+      parentPath: parentFile.value.path,
+      path: '',
+      isFolder: false,
+      isEdit: true,
+      fileType: key,
+      fileTypeText: createFileModel?.fileTypeText,
+      fileSize: 0,
+      createTime: dateFormat ( new Date ().getTime () ),
+      updateTime: dateFormat ( new Date ().getTime () ),
+    };
 
-      newFileItem.name = createFileName ( NEW_FOLDER_DEFAULT_NAME );
+    if ( key === ExplorerFileTypeEnum.FOLDER ) {
 
-      newFileItem.fileType = ExplorerFileTypeEnum.FOLDER;
+      fileItem.isFolder = true;
 
-      newFileItem.path = pathResolve ( parentFile.value.path, newFileItem.name );
+    }
 
-      break;
+    fileItem.name = createFileName ( createFileModel.defaultName );
 
-    case ExplorerFileTypeEnum.TXT:
+    fileItem.path = pathResolve ( parentFile.value.path, fileItem.name );
 
-      newFileItem.isFolder = false;
+    return fileItem;
 
-      newFileItem.name = createFileName ( NEW_TXT_DEFAULT_NAME );
+  };
 
-      newFileItem.fileType = ExplorerFileTypeEnum.TXT;
+  const newFileItem = createNewFileItem ();
 
-      newFileItem.path = pathResolve ( parentFile.value.path, newFileItem.name );
+  if ( newFileItem.name && newFileItem.path.includes ( newFileItem.name ) ) {
 
-      break;
-
-    default:
-
-      console.error ( '未知的创建操作' );
-
-      break;
+    store.updateExplorerFile ( newFileItem );
 
   }
-
-  store.updateExplorerFile ( newFileItem );
 
 }
 
