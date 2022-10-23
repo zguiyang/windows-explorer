@@ -42,7 +42,7 @@ export function useTopSearchData () {
 
     if ( !targetFolder ) {
 
-      console.error ( '不存在此目录' );
+      window.$message.error ( '没有这个目录' );
 
     } else {
 

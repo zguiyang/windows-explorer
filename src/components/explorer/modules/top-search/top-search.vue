@@ -35,7 +35,7 @@
       </div>
       <div class="navigation-wrap">
         <div class="navigation-input">
-          <n-input style="width:1120px" clearable v-model:value="navigationInputVal"
+          <n-input style="width:1120px" v-model:value="navigationInputVal"
           :input-props="{
             autocomplete: 'disabled'
          }" @update:value="navigationInputChange"
