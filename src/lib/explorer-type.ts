@@ -8,6 +8,8 @@ export const enum ExplorerFileTypeEnum {
   JPG='JPG',
   PNG = 'PNG',
   MP4 = 'MP4',
+  MP3 = 'MP3',
+  UNKNOWN = 'UNKNOWN',
 }
 
 // 文件模型，用于创建、展示、菜单
