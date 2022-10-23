@@ -26,53 +26,65 @@
           </div>
         </n-dropdown>
         <div class="operation-buttons">
-<!--          <n-popover trigger="hover">-->
-<!--            <template #trigger>-->
-<!--              <span class="operation-button">-->
-<!--                 <n-icon :size="18" color="#0d7dd1">-->
-<!--                  <content-cut-outlined></content-cut-outlined>-->
-<!--                 </n-icon>-->
-<!--              </span>-->
-<!--            </template>-->
-<!--            <span>剪切</span>-->
-<!--          </n-popover>-->
-<!--          <n-popover trigger="hover">-->
-<!--            <template #trigger>-->
-<!--              <span class="operation-button">-->
-<!--                <n-icon :size="18" color="#0d7dd1">-->
-<!--                 <copy-outline></copy-outline>-->
-<!--                </n-icon>-->
-<!--              </span>-->
-<!--            </template>-->
-<!--            <span>拷贝</span>-->
-<!--          </n-popover>-->
-<!--          <n-popover trigger="hover">-->
-<!--            <template #trigger>-->
-<!--              <span class="operation-button">-->
-<!--                <n-icon :size="18" color="#0d7dd1">-->
-<!--                  <content-paste-filled></content-paste-filled>-->
-<!--                </n-icon>-->
-<!--              </span>-->
-<!--            </template>-->
-<!--            <span>粘贴</span>-->
-<!--          </n-popover>-->
           <n-popover trigger="hover">
             <template #trigger>
-              <span class="operation-button" :class="{'disabled': reNameButtonDisabled }" @click.stop="reNameOperation">
+              <n-button class="operation-button">
+                 <n-icon :size="20" color="#0d7dd1">
+                  <file-image-outlined></file-image-outlined>
+                 </n-icon>
+              </n-button>
+            </template>
+            <span>图片预览</span>
+          </n-popover>
+          <n-popover trigger="hover">
+            <template #trigger>
+              <n-button class="operation-button">
+                <n-icon :size="20" color="#0d7dd1">
+                 <play-circle-outlined></play-circle-outlined>
+                </n-icon>
+              </n-button>
+            </template>
+            <span>视频播放</span>
+          </n-popover>
+          <n-popover trigger="hover">
+            <template #trigger>
+              <n-button class="operation-button">
+                <n-icon :size="20" color="#0d7dd1">
+                  <audiotrack-outlined></audiotrack-outlined>
+                </n-icon>
+              </n-button>
+            </template>
+            <span>音乐播放</span>
+          </n-popover>
+          <n-popover trigger="hover">
+            <template #trigger>
+              <n-button class="operation-button">
+                <n-icon :size="20" color="#0d7dd1">
+                  <sim-card-download-outlined></sim-card-download-outlined>
+                </n-icon>
+              </n-button>
+            </template>
+            <span>音乐下载</span>
+          </n-popover>
+          <n-popover trigger="hover">
+            <template #trigger>
+              <n-button class="operation-button" :disabled="reNameButtonDisabled"
+                @click.stop="reNameOperation">
                 <n-icon :size="20" color="#0d7dd1">
                   <rename24-regular></rename24-regular>
                 </n-icon>
-              </span>
+              </n-button>
             </template>
             <span>重命名</span>
           </n-popover>
           <n-popover trigger="hover">
             <template #trigger>
-               <span class="operation-button" :class="{'disabled': deleteButtonDisabled }" @click.stop="deleteFileOperation">
-                  <n-icon :size="20">
+               <n-button class="operation-button" :disabled="deleteButtonDisabled"
+                  @click.stop="deleteFileOperation">
+                  <n-icon :size="20" color="#0d7dd1">
                     <delete-outlined></delete-outlined>
                   </n-icon>
-               </span>
+               </n-button>
             </template>
             <span>删除</span>
           </n-popover>
@@ -100,11 +112,11 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-import { FolderFilled, DownOutlined, DeleteOutlined } from '@vicons/antd';
+import { FolderFilled, PlayCircleOutlined, FileImageOutlined, DownOutlined, DeleteOutlined } from '@vicons/antd';
 
-import { AddCircleOutline, CopyOutline } from '@vicons/ionicons5';
+import { AddCircleOutline } from '@vicons/ionicons5';
 
-import { ContentCutOutlined, ContentPasteFilled } from '@vicons/material';
+import { AudiotrackOutlined, SimCardDownloadOutlined } from '@vicons/material';
 
 import { Rename24Regular, ArrowSort28Regular } from '@vicons/fluent';
 
@@ -113,8 +125,8 @@ import { useTopToolsHooks, useButtonOperationHooks } from './hooks';
 export default defineComponent ( {
   name: 'explorer-top-tools',
   components: {
-    FolderFilled, DownOutlined, AddCircleOutline, ContentCutOutlined, CopyOutline, ContentPasteFilled, Rename24Regular,
-    DeleteOutlined, ArrowSort28Regular,
+    FolderFilled, DownOutlined, AddCircleOutline, Rename24Regular, DeleteOutlined,
+    ArrowSort28Regular, PlayCircleOutlined, FileImageOutlined, AudiotrackOutlined, SimCardDownloadOutlined,
   },
   setup () {
 

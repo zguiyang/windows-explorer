@@ -2,41 +2,40 @@
   <div class="explorer-top-search-wrapper">
     <n-space align="center" :size="10">
       <div class="operation-buttons search-operation-buttons">
+<!--        <n-popover trigger="hover">-->
+<!--          <template #trigger>-->
+<!--              <span class="operation-button">-->
+<!--                <n-icon>-->
+<!--                  <arrow-left-outlined></arrow-left-outlined>-->
+<!--                </n-icon>-->
+<!--              </span>-->
+<!--          </template>-->
+<!--          <span>后退</span>-->
+<!--        </n-popover>-->
+<!--        <n-popover trigger="hover">-->
+<!--          <template #trigger>-->
+<!--              <span class="operation-button">-->
+<!--                <n-icon>-->
+<!--                  <arrow-right-outlined></arrow-right-outlined>-->
+<!--                </n-icon>-->
+<!--              </span>-->
+<!--          </template>-->
+<!--          <span>前进</span>-->
+<!--        </n-popover>-->
         <n-popover trigger="hover">
           <template #trigger>
-              <span class="operation-button">
-                <n-icon>
-                  <arrow-left-outlined></arrow-left-outlined>
-                </n-icon>
-              </span>
-          </template>
-          <span>后退</span>
-        </n-popover>
-        <n-popover trigger="hover">
-          <template #trigger>
-              <span class="operation-button">
-                <n-icon>
-                  <arrow-right-outlined></arrow-right-outlined>
-                </n-icon>
-              </span>
-          </template>
-          <span>前进</span>
-        </n-popover>
-        <n-popover trigger="hover">
-          <template #trigger>
-              <span class="operation-button" :class="{'disabled': isHaveParentFolder }"
-                    @click.stop="goToSuperiorFolder">
+              <n-button class="operation-button" :disabled="isHaveParentFolder" @click.stop="goToSuperiorFolder">
                 <n-icon>
                   <arrow-up-outlined></arrow-up-outlined>
                 </n-icon>
-              </span>
+              </n-button>
           </template>
           <span>上一级</span>
         </n-popover>
       </div>
       <div class="navigation-wrap">
         <div class="navigation-input">
-          <n-input style="width:600px" clearable v-model:value="navigationInputVal"
+          <n-input style="width:1120px" clearable v-model:value="navigationInputVal"
           :input-props="{
             autocomplete: 'disabled'
          }" @update:value="navigationInputChange"
@@ -61,17 +60,17 @@
 <!--          </n-button>-->
 <!--        </div>-->
       </div>
-      <div class="search-input-wrap">
-        <n-input style="width: 380px;" placeholder="在此目录中进行搜索">
-          <template #suffix>
-            <n-button secondary type="primary">
-              <n-icon :size="22">
-                <arrow-right-outlined></arrow-right-outlined>
-              </n-icon>
-            </n-button>
-          </template>
-        </n-input>
-      </div>
+<!--      <div class="search-input-wrap">-->
+<!--        <n-input style="width: 380px;" placeholder="在此目录中进行搜索">-->
+<!--          <template #suffix>-->
+<!--            <n-button secondary type="primary">-->
+<!--              <n-icon :size="22">-->
+<!--                <arrow-right-outlined></arrow-right-outlined>-->
+<!--              </n-icon>-->
+<!--            </n-button>-->
+<!--          </template>-->
+<!--        </n-input>-->
+<!--      </div>-->
     </n-space>
   </div>
 </template>

@@ -11,17 +11,11 @@
 	user-select: none;
 	.dropdown-menu-button,.operation-button {
 		padding: 10px 12px;
-		border-radius: 6px;
-		background-color: transparent;
-		transition: all .3s;
-		cursor: pointer;
-		&:not(.disabled) {
-			&:hover {
-				background-color: #eaeaea;
-			}
-		}
-		&.disabled {
-			@apply cursor-not-allowed accent-gray-600 opacity-50;
+		border: 0;
+		height: auto;
+		outline: none;
+		.n-button__border,.n-button__state-border, &:hover .n-button__state-border, &:hover .n-button__border {
+			display: none;
 		}
 	}
 	.dropdown-menu-button {

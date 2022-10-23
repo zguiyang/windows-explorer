@@ -47,23 +47,11 @@ export function useButtonOperationHooks () {
 
   const reNameOperation = () => {
 
-    if ( reNameButtonDisabled.value ) {
-
-      return false;
-
-    }
-
     explorerFileReName ();
 
   };
 
   const deleteFileOperation = () => {
-
-    if ( deleteButtonDisabled.value ) {
-
-      return false;
-
-    }
 
     explorerFileDelete ();
 
