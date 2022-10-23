@@ -13,7 +13,7 @@
     "esModuleInterop": true,
     "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
-    "types": ["./node_modules/naive-ui/volar.d.ts", "node"],
+    "types": ["node"],
     "paths": {
       "@/*": ["./src/*"],
     },
