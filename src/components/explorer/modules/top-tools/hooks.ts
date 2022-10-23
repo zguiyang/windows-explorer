@@ -1,8 +1,10 @@
 import { DropdownOption } from 'naive-ui';
 
-import { FolderOutline } from '@vicons/ionicons5';
+import { FolderOutline, ImageOutline, VideocamOutline } from '@vicons/ionicons5';
 
-import { FileAddOutlined } from '@vicons/antd';
+import { MusicVideoOutlined } from '@vicons/material';
+
+import { FileAddOutlined, FileJpgOutlined } from '@vicons/antd';
 
 import { ExplorerFileTypeEnum, ExplorerOperationEnums } from '@/lib/explorer-type';
 
@@ -17,6 +19,18 @@ export function useTopToolsHooks () {
   const createMenus: DropdownOption[] = [
     {
       label: '文件夹', key: ExplorerFileTypeEnum.FOLDER, icon: () => renderIcon ( FolderOutline, { color: '#0d7dd1', size: 20 } ),
+    },
+    {
+      label: '视频文件', key: ExplorerFileTypeEnum.MP4, icon: () => renderIcon ( VideocamOutline, { color: '#0d7dd1', size: 20 } ),
+    },
+    {
+      label: '音乐文件', key: ExplorerFileTypeEnum.MP3, icon: () => renderIcon ( MusicVideoOutlined, { color: '#0d7dd1', size: 20 } ),
+    },
+    {
+      label: 'JPG图片', key: ExplorerFileTypeEnum.JPG, icon: () => renderIcon ( FileJpgOutlined, { color: '#0d7dd1', size: 20 } ),
+    },
+    {
+      label: 'PNG图片', key: ExplorerFileTypeEnum.PNG, icon: () => renderIcon ( ImageOutline, { color: '#0d7dd1', size: 20 } ),
     },
     {
       label: 'TXT文件', key: ExplorerFileTypeEnum.TXT, icon: () => renderIcon ( FileAddOutlined, { color: '#0d7dd1', size: 20 } ),
